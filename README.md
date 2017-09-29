@@ -1,5 +1,6 @@
 # node-oom-heapdump
 Node module which will create a V8 memory snapshot right before an "Out of Memory" error occurs.
+Node 8+ required.
 
 # Why?
 When running nodejs processes in a low memory environment, every out of memory that occurs is interesting. 
@@ -31,7 +32,7 @@ require("node-oom-heapdump")({
 });
 ```
 
-Your node process should at least be started with the "--inspect" (or --inspect=<port>) flag.
+Your node process should at least be started with the "--inspect" (or --inspect=port) flag.
 When running in an low memory environment, the following flags are advised:
 * --max_old_space_size=60 - this will limit your heapsize
 * --optimize_for_size - keep memory as low as possible (GC more often than usual)
