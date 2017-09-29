@@ -19,7 +19,7 @@ module.exports = function (options) {
         console.warn('OoM is imminent: Full GC (Mark/Sweep/Compact) complete and still more than %s% (%s%) of the heap is used. Creating heapdump now. GC stats: ', options.threshold, Math.round(heapSizeUsedPercentage), stats);
 
         // start OoMworker to create heapdump
-        let child = cp.spawn('node', ['./oomWorker.js', options.port, options.name], {
+        let child = cp.spawn('node', [path.resolve(__dirname, './oomWorker.js'), options.port, options.name], {
           cmd: path.dirname(require.main.filename),
           stdio: 'inherit'
         });
