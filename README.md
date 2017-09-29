@@ -18,7 +18,6 @@ Just run "npm test" to see it in action. It creates a heapdump named "my_snapsho
 
 # Usage
 
-
 ```javascript
 npm install node-oom-heapdump
 ```
@@ -31,6 +30,13 @@ require("node-oom-heapdump")({
     name: "my_heapdump"
 });
 ```
+
+Your node process should at least be started with the "--inspect" (or --inspect=<port>) flag.
+When running in an low memory environment, the following flags are advised:
+* --max_old_space_size=60 - this will limit your heapsize
+* --optimize_for_size - keep memory as low as possible (GC more often than usual)
+* --always_compact - keep memory as low as possible (do compactions each GC)
+These might impact performance though.
 
 # Options
 * threshold - integer which determines when to make the snapshot. When the used heapSize exceeds the threshold, a heapdump is made.
