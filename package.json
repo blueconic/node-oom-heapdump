@@ -1,0 +1,34 @@
+{
+  "name": "node-oom-heapdump",
+  "version": "1.0.0",
+  "description": "Node module which will create a V8 memory snapshot right before an \"Out of Memory\" error occurs.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --max_old_space_size=60 --optimize-for-size --always-compact --inspect tests\\oom_app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blueconic/node-oom-heapdump.git"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "keywords": [
+    "nodejs",
+    "memory-leak",
+    "out-of-memory"
+  ],
+  "author": "Paul Rütter",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/blueconic/node-oom-heapdump/issues"
+  },
+  "homepage": "https://github.com/blueconic/node-oom-heapdump#readme",
+  "devDependencies": {
+    "eslint-config-google": "^0.9.1"
+  },
+  "dependencies": {
+    "chrome-remote-interface": "^0.25.0",
+    "gc-stats": "^1.0.2"
+  }
+}
