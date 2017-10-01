@@ -48,7 +48,7 @@ These might impact performance though.
 * heapdumpOnOOM - boolean whether to create a heapdump when an out of memory occurs. Default true.
 * threshold - integer between 0 and 100 (%) which determines when to make the heapdump. When the used heapSize exceeds the threshold, a heapdump is made. 
 * path - the path where the heapdump ends up when an out of memory error occurs.
-* port - optionally, the alternative DevTools protocol port. Defauls to 9229. Should map on the port given to the --inspect arg.
+* port - optionally, the alternative DevTools protocol port. Defaults to 9229. Should map on the port given to the --inspect arg.
 
 # API
 Besides creating heapdumps when an out of memory error occurs, there also is an API for creating heapdumps on request.
