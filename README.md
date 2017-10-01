@@ -45,7 +45,7 @@ When running in a low memory environment, the following flags are advised:
 These might impact performance though.
 
 # Options
-* heapdumpOnOOM - boolean wether to create a heapdump when an out of memory occurs. Default true.
+* heapdumpOnOOM - boolean whether to create a heapdump when an out of memory occurs. Default true.
 * threshold - integer between 0 and 100 (%) which determines when to make the heapdump. When the used heapSize exceeds the threshold, a heapdump is made. 
 * path - the path where the heapdump ends up when an out of memory error occurs.
 * port - optionally, the alternative DevTools protocol port. Defauls to 9229. Should map on the port given to the --inspect arg.
