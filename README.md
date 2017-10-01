@@ -35,6 +35,7 @@ require("node-oom-heapdump")({
 ```
 
 Your node process should at least be started with the "--inspect" (or --inspect=port) flag.
+
 When running in a low memory environment, the following flags are advised:
 
 * --max_old_space_size=60 - this will limit your heapsize on 60MB
