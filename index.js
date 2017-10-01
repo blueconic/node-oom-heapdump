@@ -61,7 +61,7 @@ function parseOptions(options) {
   } else {
     options.port = parseInt(options.port);
   }
-  if (options.name === undefined) {
-    options.name = "OoM-" + process.pid + "-" + Date.now();
+  if (options.path === undefined) {
+    options.path = "OoM-" + process.pid + "-" + Date.now();
   }
 }

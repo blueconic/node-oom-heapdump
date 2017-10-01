@@ -30,7 +30,7 @@ Just add the following snippet to your node process.
 ```javascript
 require("node-oom-heapdump")({
     threshold: 75,
-    name: "my_heapdump"
+    path: "./my_heapdump"
 });
 ```
 
