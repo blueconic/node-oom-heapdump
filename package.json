@@ -1,10 +1,10 @@
 {
   "name": "node-oom-heapdump",
-  "version": "1.0.1",
-  "description": "Node module which will create a V8 memory snapshot right before an \"Out of Memory\" error occurs.",
+  "version": "1.0.2",
+  "description": "Create a V8 heap snapshot right before an \"Out of Memory\" error occurs, or create a heap snapshot on request.",
   "main": "index.js",
   "scripts": {
-    "test": "node --max_old_space_size=60 --optimize-for-size --always-compact --inspect tests\\oom_app.js"
+    "test": "node --max_old_space_size=60 --optimize_for_size --always_compact --inspect tests\\oom_app.js"
   },
   "repository": {
     "type": "git",
@@ -16,7 +16,9 @@
   "keywords": [
     "nodejs",
     "memory-leak",
-    "out-of-memory"
+    "out-of-memory",
+    "heapdump",
+    "memory"
   ],
   "author": "Paul Rütter",
   "license": "MIT",

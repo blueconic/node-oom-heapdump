@@ -1,48 +1,67 @@
-let cp = require("child_process");
-let path = require("path");
+let nodeOomLib = require("./lib");
 
-let busy = false;
+// private
+let instance;
 
+// expose API, which is a singleton
 module.exports = function (options) {
-  parseOptions(options || {});
+  if (!instance) {
+    instance = new NodeOomHeapdumpAPI(options);
+  }
+  return instance;
+}
 
-  // see https://www.npmjs.com/package/gc-stats
-  let gcStats = new require('gc-stats')();
-  gcStats.on('stats', function (stats) {
-    // gctype 2 is a Full GC (Mark/Sweep/Compact)
-    if (stats.gctype === 2 && !busy) {
-      let heapSizeUsedPercentage = (parseInt(stats.after.totalHeapSize) / parseInt(stats.after.heapSizeLimit)) * 100;
-      if (heapSizeUsedPercentage > options.threshold) {
-        busy = true;
+// API class
+class NodeOomHeapdumpAPI {
+  constructor(options) {
+    parseOptions(options || {});
 
-        // this is a full GC and the used heap size is using more than 80% of the assigned heap space limit
-        console.warn('OoM is imminent: Full GC (Mark/Sweep/Compact) complete and still more than %s% (%s%) of the heap is used. Creating heapdump now. GC stats: ', options.threshold, Math.round(heapSizeUsedPercentage), stats);
+    this._impl = new nodeOomLib(options);
+  }
 
-        // start OoMworker to create heapdump
-        let child = cp.spawn('node', [path.resolve(__dirname, './oomWorker.js'), options.port, options.name], {
-          cmd: path.dirname(require.main.filename),
-          stdio: 'inherit'
-        });
-        child.on('error', function (err) {
-          console.error(err);
-        });
-      }
-    }
-  });
-};
+  /**
+   * Returns the path to the created heap snapshot in a promise, or rejects on error
+   * @param {String} snapshotPath - path of the snapshot
+   * @return {Promise} the heap snapshot path on success or error on rejection
+   */
+  createHeapSnapshot(snapshotPath) {
+    return this._impl.createHeapSnapshot(snapshotPath);
+  }
 
+  /**
+   * Deletes all previously created heapsnapshots from disk
+   */
+  deleteAllHeapSnapshots() {
+    this._impl.deleteAllHeapSnapshots();
+  }
+
+  /**
+   * Deletes a particular snapshot from disk
+   * @param {String} snapshotPath - path of the heap snapshot to delete 
+   * @return {Promise}
+   */
+  deleteHeapSnapshot(snapshotPath) {
+    return this._impl.deleteHeapSnapshot(snapshotPath);
+  }
+}
+
+
+// utility functions
 function parseOptions(options) {
-  if (!options.threshold) {
+  if (options.heapdumpOnOOM === undefined) {
+    options.heapdumpOnOOM = true;
+  }
+  if (options.threshold === undefined) {
     options.threshold = 75;
   } else {
     options.threshold = parseInt(options.threshold);
   }
-  if (!options.port) {
+  if (options.port === undefined) {
     options.port = 9229;
   } else {
     options.port = parseInt(options.port);
   }
-  if (!options.name) {
+  if (options.name === undefined) {
     options.name = "OoM-" + process.pid + "-" + Date.now();
   }
 }

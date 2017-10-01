@@ -1,6 +1,7 @@
 let oom = require("../index.js")({
     threshold: 75,
-    name: "my_heapdump"
+    name: "my_heapdump",
+    heapdumpOnOOM: true
 });
 
 // It is important to use named constructors (like the one below), otherwise
