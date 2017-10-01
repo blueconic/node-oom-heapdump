@@ -5,4 +5,4 @@
 - 1.0.1 - minor changed
 
 29-09-2017 - Paul Rütter
-- 1.0.0 - initial version
+- 1.0.1 - initial version
