@@ -64,17 +64,24 @@ let nodeOomHeapdump = require("node-oom-heapdump")({
 * @param {String} snapshotPath - path of the snapshot
 * @return {Promise} Promise containing the heap snapshot path on success or error on rejection
 */
-createHeapSnapshot(snapshotPath);
+nodeOomHeapdump.createHeapSnapshot("mypath").then((snapshotPath) => {
+  // do something with heap snapshot
+  
+  // and delete again from disk
+  nodeOomHeapdump.deleteHeapSnapshot(snapshotPath);
+}).catch((err) => {
+  // handle error
+});
 
 /**
 * Deletes all previously created heapsnapshots from disk
 */
-deleteAllHeapSnapshots();
+nodeOomHeapdump.deleteAllHeapSnapshots();
 
 /**
 * Deletes a particular snapshot from disk
 * @param {String} snapshotPath - path of the heap snapshot to delete 
 * @return {Promise}
 */
-deleteHeapSnapshot(snapshotPath);
+nodeOomHeapdump.deleteHeapSnapshot(snapshotPath);
 ```
