@@ -2,7 +2,7 @@
 Node module which will create a V8 heap snapshot right before an "Out of Memory" error occurs.
 It can also create heapdumps on request like 'v8-profiler', but does this off-process so it doesn't interfere with execution of the main process.
 
-Tested on Node.js 8.x, but should also work from fine Node.js 6.3 upwards (According to: https://chromedevtools.github.io/devtools-protocol/v8/).
+Tested on Node.js 8.x, but should also work fine using Node.js 6.3 upwards (According to: https://chromedevtools.github.io/devtools-protocol/v8/).
 
 # Why?
 When running nodejs processes in a low memory environment, every out of memory that occurs is interesting. 
