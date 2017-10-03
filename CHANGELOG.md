@@ -1,4 +1,7 @@
 03-10-2017 - Paul Rütter
+- 1.0.5 - Change heap calculation.
+
+03-10-2017 - Paul Rütter
 - 1.0.4 - Add error handler in case the calling process is not running anymore. Also, block execution a while to allow heapdump to be created.
 
 01-10-2017 - Paul Rütter

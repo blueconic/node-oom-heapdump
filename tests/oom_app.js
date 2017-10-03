@@ -1,5 +1,5 @@
 let oom = require("../index.js")({
-    threshold: 75,
+    threshold: 90,
     path: "../my_heapdump",
     heapdumpOnOOM: true
 });
