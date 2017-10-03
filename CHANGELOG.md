@@ -1,3 +1,6 @@
+04-10-2017 - Paul Rütter
+- 1.0.6 - Add limit option.
+
 03-10-2017 - Paul Rütter
 - 1.0.5 - Change heap calculation.
 

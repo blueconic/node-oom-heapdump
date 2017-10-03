@@ -1,7 +1,8 @@
 let oom = require("../index.js")({
     threshold: 90,
     path: "../my_heapdump",
-    heapdumpOnOOM: true
+    heapdumpOnOOM: true,
+    limit: 1
 });
 
 // It is important to use named constructors (like the one below), otherwise

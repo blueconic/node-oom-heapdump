@@ -52,7 +52,7 @@ function parseOptions(options) {
     options.heapdumpOnOOM = true;
   }
   if (options.threshold === undefined) {
-    options.threshold = 75;
+    options.threshold = 90;
   } else {
     options.threshold = parseInt(options.threshold);
   }
@@ -63,5 +63,10 @@ function parseOptions(options) {
   }
   if (options.path === undefined) {
     options.path = "OoM-" + process.pid + "-" + Date.now();
+  }
+  if (options.limit === undefined) {
+    options.limit = 3;
+  } else {
+    options.limit = parseInt(options.limit);
   }
 }
