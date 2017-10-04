@@ -17,7 +17,7 @@ This module creates the heap snapshot from a separate process, which solves this
 It uses 'gc-stats' to determine when an out of memory error is about to occur and then fires up a new process which uses 'chrome-remote-interface' to connect with the DevTools protocol (https://chromedevtools.github.io/devtools-protocol/v8/) of the calling process. That process uses HeapProfiler to actually create the heapdump and then exits.
 
 # Example
-Just run "npm test" to see it in action. It creates a heapdump named "my_heapdump.heapsnapshot" in the root of your project.
+Just run "npm test" to see it in action. It creates a heapdump named "my_heapdump.heapsnapshot" in the 'tests' directory of this module.
 
 # Usage
 
