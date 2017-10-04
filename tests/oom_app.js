@@ -1,8 +1,11 @@
+let path = require('path');
+ 
 let oom = require("../index.js")({
     threshold: 90,
-    path: "../my_heapdump",
+    path: path.resolve(__dirname, 'my_heapdump'),
     heapdumpOnOOM: true,
-    limit: 1
+    limit: 2,
+    addTimestamp: false
 });
 
 // It is important to use named constructors (like the one below), otherwise

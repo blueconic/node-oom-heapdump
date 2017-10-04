@@ -15,7 +15,11 @@ var handle = setInterval(function () {
     });
 
     if (i === 3) {
-        oomLib.deleteHeapSnapshot(path);
+        oomLib.deleteHeapSnapshot(path).then(() => {
+            //
+        }).catch((err) => {
+          console.error("err", err);
+        });
         setTimeout(function () {
             process.exit(0);
         }, 100);

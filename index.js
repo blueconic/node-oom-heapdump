@@ -69,4 +69,9 @@ function parseOptions(options) {
   } else {
     options.limit = parseInt(options.limit);
   }
+  if (options.addTimestamp === undefined) {
+    options.addTimestamp = false;
+  } else {
+    options.addTimestamp = options.addTimestamp === true;
+  }
 }

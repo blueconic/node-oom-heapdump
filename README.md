@@ -17,7 +17,7 @@ This module creates the heap snapshot from a separate process, which solves this
 It uses 'gc-stats' to determine when an out of memory error is about to occur and then fires up a new process which uses 'chrome-remote-interface' to connect with the DevTools protocol (https://chromedevtools.github.io/devtools-protocol/v8/) of the calling process. That process uses HeapProfiler to actually create the heapdump and then exits.
 
 # Example
-Just run "npm test" to see it in action. It creates a heapdump named "my_snapshot.heapsnapshot" in the root.
+Just run "npm test" to see it in action. It creates a heapdump named "my_heapdump.heapsnapshot" in the root of your project.
 
 # Usage
 
@@ -28,9 +28,10 @@ npm install node-oom-heapdump
 Just add the following snippet to your node process.
 
 ```javascript
-require("node-oom-heapdump")({
+let path = require('path');
+require('node-oom-heapdump')({
     threshold: 90,
-    path: "./my_heapdump"
+    path: path.resolve(__dirname, 'my_heapdump')
 });
 ```
 
@@ -47,8 +48,9 @@ These might impact performance though.
 # Options
 * heapdumpOnOOM - boolean whether to create a heapdump when an out of memory occurs. Default true.
 * threshold - integer between 0 and 100 (%) which determines when to make the heapdump. When the used heapSize exceeds the threshold, a heapdump is made. This value can be tuned depending on your configuration; if memory usage is very volatile, a lower value might make more sense. Default is 90.
+* path - the path where the heapdump ends up when an out of memory error occurs. '.heapsnapshot' is automatically appended. Defaults to this modules' directory.
+* addTimestamp - add a timestamp to the out of memory heapdump filename, to make it unique. Default is false.
 * limit - optionally, specify a limit to how many heapdumps will be created when being above the threshold. Default is 3.
-* path - the path where the heapdump ends up when an out of memory error occurs.
 * port - optionally, the alternative DevTools protocol port. Defaults to 9229. Should map on the port given to the --inspect arg.
 
 # API
