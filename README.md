@@ -1,5 +1,6 @@
 # node-oom-heapdump
 Node module which will create a V8 heap snapshot right before an "Out of Memory" error occurs.
+
 It can also create heapdumps and CPU profiles on request like 'v8-profiler', but does this off-process so it doesn't interfere with execution of the main process.
 
 Tested on Node.js 8.x, but should also work fine using Node.js 6.3 upwards (According to: https://chromedevtools.github.io/devtools-protocol/v8/).
@@ -55,6 +56,7 @@ These might impact performance though.
 
 # API
 Besides creating heapdumps when an out of memory error occurs, there also is an API for creating heapdumps and CPU profiles on request. See below for the currently available API.
+
 Notice that you cannot create a heapdump while a CPU profile is being generated and vice versa; an Error will be thrown if this is the case.
 
 ```javascript
@@ -63,10 +65,10 @@ let nodeOomHeapdump = require("node-oom-heapdump")({
 });
 
 /**
-* Returns the path to the created heap snapshot in a promise, or rejects on error
-* @param {String} snapshotPath - path of the snapshot
-* @return {Promise} Promise containing the heap snapshot path on success or error on rejection
-*/
+  * Returns the path to the created heap snapshot in a promise, or rejects on error
+  * @param {String} snapshotPath - path of the snapshot
+  * @return {Promise} Promise containing the heap snapshot path on success or error on rejection
+  */
 nodeOomHeapdump.createHeapSnapshot("myheapsnapshotpath").then((snapshotPath) => {
   // do something with heap snapshot
   
@@ -77,15 +79,15 @@ nodeOomHeapdump.createHeapSnapshot("myheapsnapshotpath").then((snapshotPath) => 
 });
 
 /**
-* Deletes all previously created heapsnapshots from disk
-*/
+  * Deletes all previously created heapsnapshots from disk
+  */
 nodeOomHeapdump.deleteAllHeapSnapshots();
 
 /**
-* Deletes a particular snapshot from disk
-* @param {String} snapshotPath - path of the heap snapshot to delete 
-* @return {Promise}
-*/
+  * Deletes a particular snapshot from disk
+  * @param {String} snapshotPath - path of the heap snapshot to delete 
+  * @return {Promise}
+  */
 nodeOomHeapdump.deleteHeapSnapshot(snapshotPath);
 
 /**
