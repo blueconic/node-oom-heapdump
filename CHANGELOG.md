@@ -1,3 +1,9 @@
+05-10-2017 - Paul Rütter
+- 1.0.8 - Add CPU profile functionality.
+
+04-10-2017 - Paul Rütter
+- 1.0.7 - Add addTimestamp option.
+
 04-10-2017 - Paul Rütter
 - 1.0.6 - Add limit option.
 
