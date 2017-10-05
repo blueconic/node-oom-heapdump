@@ -43,8 +43,38 @@ class NodeOomHeapdumpAPI {
   deleteHeapSnapshot(snapshotPath) {
     return this._impl.deleteHeapSnapshot(snapshotPath);
   }
-}
 
+  /**
+   * Returns the path to the created CPU profile in a promise, or rejects on error
+   * @param {String} cpuProfilePath - path of the CPU profile
+   * @param {number} duration - the duration of the CPU profile in ms
+   * @return {Promise} the CPU profile path on success or error on rejection
+   */
+  createCpuProfile(cpuProfilePath, duration) {
+    if (duration === undefined) {
+      duration = 30000;
+    } else {
+      duration = parseInt(duration);
+    }
+    return this._impl.createCpuProfile(cpuProfilePath, duration);
+  }
+
+  /**
+   * Deletes all previously created CPU profiles from disk
+   */
+  deleteAllCpuProfiles() {
+    this._impl.deleteAllCpuProfiles();
+  }
+
+  /**
+   * Deletes a particular CPU profile from disk
+   * @param {String} cpuProfilePath - path to the CPU profile to delete from disk
+   * @return {Promise}
+   */
+  deleteCpuProfile(cpuProfilePath) {
+    return this._impl.deleteCpuProfile(cpuProfilePath);
+  }
+}
 
 // utility functions
 function parseOptions(options) {

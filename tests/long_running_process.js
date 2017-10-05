@@ -18,7 +18,7 @@ var handle = setInterval(function () {
         oomLib.deleteHeapSnapshot(path).then(() => {
             //
         }).catch((err) => {
-          console.error("err", err);
+            console.error("err", err);
         });
         setTimeout(function () {
             process.exit(0);

@@ -1,6 +1,6 @@
 # node-oom-heapdump
 Node module which will create a V8 heap snapshot right before an "Out of Memory" error occurs.
-It can also create heapdumps on request like 'v8-profiler', but does this off-process so it doesn't interfere with execution of the main process.
+It can also create heapdumps and CPU profiles on request like 'v8-profiler', but does this off-process so it doesn't interfere with execution of the main process.
 
 Tested on Node.js 8.x, but should also work fine using Node.js 6.3 upwards (According to: https://chromedevtools.github.io/devtools-protocol/v8/).
 
@@ -54,8 +54,8 @@ These might impact performance though.
 * port - optionally, the alternative DevTools protocol port. Defaults to 9229. Should map on the port given to the --inspect arg.
 
 # API
-Besides creating heapdumps when an out of memory error occurs, there also is an API for creating heapdumps on request.
-See below for the currently available API.
+Besides creating heapdumps when an out of memory error occurs, there also is an API for creating heapdumps and CPU profiles on request. See below for the currently available API.
+Notice that you cannot create a heapdump while a CPU profile is being generated and vice versa; an Error will be thrown if this is the case.
 
 ```javascript
 let nodeOomHeapdump = require("node-oom-heapdump")({
@@ -67,7 +67,7 @@ let nodeOomHeapdump = require("node-oom-heapdump")({
 * @param {String} snapshotPath - path of the snapshot
 * @return {Promise} Promise containing the heap snapshot path on success or error on rejection
 */
-nodeOomHeapdump.createHeapSnapshot("mypath").then((snapshotPath) => {
+nodeOomHeapdump.createHeapSnapshot("myheapsnapshotpath").then((snapshotPath) => {
   // do something with heap snapshot
   
   // and delete again from disk
@@ -87,4 +87,31 @@ nodeOomHeapdump.deleteAllHeapSnapshots();
 * @return {Promise}
 */
 nodeOomHeapdump.deleteHeapSnapshot(snapshotPath);
+
+/**
+  * Returns the path to the created CPU profile in a promise, or rejects on error
+  * @param {String} cpuProfilePath - path of the CPU profile
+  * @param {number} duration - the duration of the CPU profile in ms (default: 30000ms)
+  * @return {Promise} the CPU profile path on success or error on rejection
+  */
+nodeOomHeapdump.createCpuProfile("mycpuprofilepath", 10000).then((cpuProfilePath) => {
+  // do something with CPU profile
+  
+  // and delete again from disk
+  nodeOomHeapdump.deleteCpuProfile(cpuProfilePath);
+}).catch((err) => {
+  // handle error
+});
+
+/**
+  * Deletes all previously created CPU profiles from disk
+  */
+nodeOomHeapdump.deleteAllCpuProfiles();
+
+/**
+  * Deletes a particular CPU profile from disk
+  * @param {String} cpuProfilePath - path to the CPU profile to delete from disk
+  * @return {Promise}
+  */
+nodeOomHeapdump.deleteCpuProfile(cpuProfilePath);
 ```
