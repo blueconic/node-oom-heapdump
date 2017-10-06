@@ -1,3 +1,6 @@
+06-10-2017 - Paul Rütter
+- 1.0.9 - Handle exit codes better and reject promise if so.
+
 05-10-2017 - Paul Rütter
 - 1.0.8 - Add CPU profile functionality.
 
