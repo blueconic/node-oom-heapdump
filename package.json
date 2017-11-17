@@ -1,10 +1,10 @@
 {
   "name": "node-oom-heapdump",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Create a V8 heap snapshot right before an \"Out of Memory\" error occurs, or create a heap snapshot on request.",
   "main": "index.js",
   "scripts": {
-    "test": "node --max_old_space_size=60 --optimize_for_size --always_compact --inspect tests\\oom_app.js"
+    "test": "node --max_old_space_size=80 --optimize_for_size --always_compact --inspect tests\\oom_app.js"
   },
   "repository": {
     "type": "git",

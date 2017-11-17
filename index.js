@@ -37,7 +37,7 @@ class NodeOomHeapdumpAPI {
 
   /**
    * Deletes a particular snapshot from disk
-   * @param {String} snapshotPath - path of the heap snapshot to delete 
+   * @param {String} snapshotPath - path of the heap snapshot to delete
    * @return {Promise}
    */
   deleteHeapSnapshot(snapshotPath) {
@@ -82,7 +82,7 @@ function parseOptions(options) {
     options.heapdumpOnOOM = true;
   }
   if (options.threshold === undefined) {
-    options.threshold = 90;
+    options.threshold = 70;
   } else {
     options.threshold = parseInt(options.threshold);
   }
