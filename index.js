@@ -16,6 +16,9 @@ class NodeOomHeapdumpAPI {
   constructor(options) {
     parseOptions(options || {});
 
+    // verify connectibility on the configured port
+    checkPort(options.port);
+
     this._impl = new nodeOomLib(options);
   }
 
@@ -103,5 +106,24 @@ function parseOptions(options) {
     options.addTimestamp = false;
   } else {
     options.addTimestamp = options.addTimestamp === true;
+  }
+}
+
+function checkPort(port) {
+  const WebSocket = require('ws');
+
+  const ws = new WebSocket('ws://127.0.0.1:' + port);
+  try {
+    ws.on('error', function error(e) {
+      if (e.code !== 'ECONNREFUSED') {
+        // this is good; this port should already be taken
+        console.log("Debugger is listening on port %s, 'node-oom-heapdump' can function correctly.", port);
+      } else {
+        // ECONNREFUSED, this is not good
+        console.warn("Debugger is not listening on port %s, 'node-oom-heapdump' cannot function correctly. Is the Node.js process started with the --inspect=%s flag?", port, port, e);
+      }
+    });
+  } catch (err) {
+    console.error(err);
   }
 }

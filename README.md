@@ -37,6 +37,7 @@ require('node-oom-heapdump')({
 ```
 
 Your node process should at least be started with the "--inspect" (or --inspect=port) flag.
+When the module is loaded, the configured port is verified. If it doesn't respond correctly, a console warning will be shown.
 
 When running in a low memory environment, the following flags are advised:
 

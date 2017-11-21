@@ -1,3 +1,6 @@
+11-21-2017 - Paul Rütter
+- 1.0.11 - Added port verification; when the module is loaded, the configured WebSocket port is verified. If the websocket responds with ECONNREFUSED, the process might have been started without the --inspect flag.
+
 11-17-2017 - Paul Rütter
 - 1.0.10 - Use gc-stats to calculate when to make a OoM heapdumo instead of process.memoryUsage() as this memory information (heapTotal) is growing over time, which is not expected.
 - Stringify gc-stats output, so it runs over only 1 line.
