@@ -118,3 +118,10 @@ nodeOomHeapdump.deleteAllCpuProfiles();
   */
 nodeOomHeapdump.deleteCpuProfile(cpuProfilePath);
 ```
+
+# Known issues
+When the OoM heapdump process kicks in, it's notorious for using a lot of memory. This is caused by a bug in V8/DevTools protocol and is reported here (https://bugs.chromium.org/p/chromium/issues/detail?id=768355); the protocol has no backpressure mechanism, which causes the heapdump to be pushed faster than the DevTools client can handle, causing in-memory buffering.
+
+This is not a problem if your server/machine has memory to spare, but can cause issues in memory restricted environments like a Docker container. Once the process exceeds the container memory threshold, it will be killed by OoMKiller (if enabled). This leads to an empty heapsnapshot file (0 bytes).
+
+Please vote for that issue to be fixed!
