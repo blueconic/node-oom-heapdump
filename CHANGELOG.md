@@ -1,3 +1,7 @@
+02-13-2018 - Paul Rütter
+- 1.0.12 - Use 'require-main-filename' instead of require.main.filename, to resolve 'https://github.com/blueconic/node-oom-heapdump/issues/3'.
+- Upgrade dependencies
+
 11-21-2017 - Paul Rütter
 - 1.0.11 - Added port verification; when the module is loaded, the configured WebSocket port is verified. If the websocket responds with ECONNREFUSED, the process might have been started without the --inspect flag.
 

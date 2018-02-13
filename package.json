@@ -1,6 +1,6 @@
 {
   "name": "node-oom-heapdump",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "Create a V8 heap snapshot right before an \"Out of Memory\" error occurs, or create a heap snapshot on request.",
   "main": "index.js",
   "scripts": {
@@ -30,8 +30,9 @@
     "eslint-config-google": "^0.9.1"
   },
   "dependencies": {
-    "chrome-remote-interface": "^0.25.3",
-    "gc-stats": "^1.0.2",
-    "ws": "^3.3.2"
+    "chrome-remote-interface": "^0.25.5",
+    "gc-stats": "^1.1.0",
+    "require-main-filename": "^1.0.1",
+    "ws": "^4.0.0"
   }
 }
