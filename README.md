@@ -118,3 +118,21 @@ nodeOomHeapdump.deleteAllCpuProfiles();
   */
 nodeOomHeapdump.deleteCpuProfile(cpuProfilePath);
 ```
+
+# Known issues and limitations
+
+## Memory usage
+When the OoM heapdump process kicks in, it's notorious for using a lot of memory. This is caused by a bug in V8/DevTools protocol and is reported here (https://bugs.chromium.org/p/chromium/issues/detail?id=768355); the protocol has no backpressure mechanism, which causes the heapdump to be pushed faster than the DevTools client can handle, causing in-memory buffering.
+
+This is not a problem if your server/machine has memory to spare, but can cause issues in memory restricted environments like a Docker container. Once the process exceeds the container memory threshold, it will be killed by OoMKiller (if enabled). This leads to an empty heapsnapshot file (0 bytes).
+
+Please vote for that issue to be fixed!
+
+## Large allocations & memory growth volatility
+
+As mentioned in https://github.com/blueconic/node-oom-heapdump/issues/1, this module cannot handle volatile memory growth caused by large allocations at once. This limitation is caused by the way this module works:
+* the module monitors GC activity; when a Full GC is done, it checks if the memory usage exceeds the configured threshold (70% by default).
+* this logic can only kick in when the process is still running.
+* when a large memory allocation is causing a direct OoM without the garbage collector being able to do its work, no heapdump will be created.
+
+Since this module relies on monitoring GC activity, this issue cannot be fixed. It would only be fixable if Node.js would provide some kind of hook before an Out of Memory occurs (described here: https://github.com/node-inspector/v8-profiler/issues/109).
