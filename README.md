@@ -17,7 +17,7 @@ This module creates the heap snapshot from a separate process, which solves this
 Also, these modules are not able to create a heapdump when an out of memory occurs.
 
 # What?
-Based on the work of 'trevnorris' (https://github.com/trevnorris/node-ofe/), this module uses 'isolate.SetOOMErrorHandler'(https://v8docs.nodesource.com/node-8.9/d5/dda/classv8_1_1_isolate.html#a08fd4087f39c33b4ac1c20ad953ce4e3) of the V8 engine, and then creates a heapdump when an actual Out of Memory occurs. To make this happen, a native C++ add-on is used. 
+Based on the work of 'trevnorris' (https://github.com/trevnorris/node-ofe/), this module uses 'isolate.SetOOMErrorHandler' (https://v8docs.nodesource.com/node-8.9/d5/dda/classv8_1_1_isolate.html#a08fd4087f39c33b4ac1c20ad953ce4e3) of the V8 engine, and then creates a heapdump when an actual Out of Memory occurs. To make this happen, a native C++ add-on is used. 
 Node-gyp is needed to compile this add-on.
 
 When creating a heapdump of CPU profile on request, the DevTools protocol is used to create these files (no native add-on).
