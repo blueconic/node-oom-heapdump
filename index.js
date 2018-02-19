@@ -84,23 +84,13 @@ function parseOptions(options) {
   if (options.heapdumpOnOOM === undefined) {
     options.heapdumpOnOOM = true;
   }
-  if (options.threshold === undefined) {
-    options.threshold = 70;
-  } else {
-    options.threshold = parseInt(options.threshold);
-  }
   if (options.port === undefined) {
     options.port = 9229;
   } else {
     options.port = parseInt(options.port);
   }
   if (options.path === undefined) {
-    options.path = "OoM-" + process.pid + "-" + Date.now();
-  }
-  if (options.limit === undefined) {
-    options.limit = 3;
-  } else {
-    options.limit = parseInt(options.limit);
+    options.path = "OoM-pid-" + process.pid;
   }
   if (options.addTimestamp === undefined) {
     options.addTimestamp = false;

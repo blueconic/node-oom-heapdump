@@ -1,3 +1,8 @@
+02-19-2018 Paul Rütter
+- Changed the way the "out of memory" heapdump is created, based on the work of 'trevnorris' (https://github.com/trevnorris/node-ofe/blob/master/ofe.cc). Using V8 engine isolate.SetOOMErrorHandler() to hook in on the out of memory event.
+- Updated readme and removed deprecated 'limit' and 'threshold' parameters.
+- Removed 'gc-stats' module, as we no longer need it with the native C++ add-on.
+
 02-13-2018 - Paul Rütter
 - 1.0.12 - Use 'require-main-filename' instead of require.main.filename, to resolve 'https://github.com/blueconic/node-oom-heapdump/issues/3'.
 - Upgrade dependencies

@@ -3,19 +3,25 @@ Node module which will create a V8 heap snapshot right before an "Out of Memory"
 
 It can also create heapdumps and CPU profiles on request like 'v8-profiler', but does this off-process so it doesn't interfere with execution of the main process.
 
-Tested on Node.js 8.x, but should also work fine using Node.js 6.3 upwards (According to: https://chromedevtools.github.io/devtools-protocol/v8/).
+Tested on Node.js 8.x, but should also work fine using Node.js 7.0 and higher.
+No support for Node.js < 7.0 at the moment (although this can be fixed if needed).  
 
 # Why?
 When running nodejs processes in a low memory environment, every out of memory that occurs is interesting.
 To figure out why a process went out of memory, a heap snapshot (e.g. heapdump) can help a lot.
-This module creates a heap snapshot right before a suspected out of memory error occurs.
-It shows what the heap was filled with right before the out of memory error occured.
+This module creates a heap snapshot right before an out of memory error occurs (by leveraging 'SetOOMErrorHandler' of the V8 engine).
+It shows what the heap was filled with right before the out of memory error occured and can be opened with Chrome DevTools (Memory tab).
 
 There are several modules around which can create heapdumps (v8-profiler, node-heapdump), but these run in the same process as the one going out of memory. Often, creating heapdump won't work when the node process is already struggling.
 This module creates the heap snapshot from a separate process, which solves this issue.
+Also, these modules are not able to create a heapdump when an out of memory occurs.
 
 # What?
-It uses 'gc-stats' to determine when an out of memory error is about to occur and then fires up a new process which uses 'chrome-remote-interface' to connect with the DevTools protocol (https://chromedevtools.github.io/devtools-protocol/v8/) of the calling process. That process uses HeapProfiler to actually create the heapdump and then exits.
+Based on the work of 'trevnorris' (https://github.com/trevnorris/node-ofe/), this module uses 'isolate.SetOOMErrorHandler'(https://v8docs.nodesource.com/node-8.9/d5/dda/classv8_1_1_isolate.html#a08fd4087f39c33b4ac1c20ad953ce4e3) of the V8 engine, and then creates a heapdump when an actual Out of Memory occurs. To make this happen, a native C++ add-on is used. 
+Node-gyp is needed to compile this add-on.
+
+When creating a heapdump of CPU profile on request, the DevTools protocol is used to create these files (no native add-on).
+The --inspect node.js flag is needed to make this work (which is validated on startup).
 
 # Example
 Just run "npm test" to see it in action. It creates a heapdump named "my_heapdump.heapsnapshot" in the 'tests' directory of this module.
@@ -31,13 +37,11 @@ Just add the following snippet to your node process.
 ```javascript
 let path = require('path');
 require('node-oom-heapdump')({
-    threshold: 70,
     path: path.resolve(__dirname, 'my_heapdump')
 });
 ```
 
-Your node process should at least be started with the "--inspect" (or --inspect=port) flag.
-When the module is loaded, the configured port is verified. If it doesn't respond correctly, a console warning will be shown.
+To make heapdumps and CPU profiles on request, your node process should at least be started with the "--inspect" (or --inspect=port) flag. When the module is loaded, the configured port is verified. If it doesn't respond correctly, a console warning will be shown.
 
 When running in a low memory environment, the following flags are advised:
 
@@ -49,10 +53,8 @@ These might impact performance though.
 
 # Options
 * heapdumpOnOOM - boolean whether to create a heapdump when an out of memory occurs. Default true.
-* threshold - integer between 0 and 100 (%) which determines when to make the heapdump. When the used heapSize exceeds the threshold, a heapdump is made. This value can be tuned depending on your configuration; if memory usage is very volatile, a lower value might make more sense. Default is 70.
 * path - the path where the heapdump ends up when an out of memory error occurs. '.heapsnapshot' is automatically appended. Defaults to this modules' directory.
 * addTimestamp - add a timestamp to the out of memory heapdump filename, to make it unique. Default is false.
-* limit - optionally, specify a limit to how many heapdumps will be created when being above the threshold. Default is 3.
 * port - optionally, the alternative DevTools protocol port. Defaults to 9229. Should map on the port given to the --inspect arg.
 
 # API
@@ -122,17 +124,8 @@ nodeOomHeapdump.deleteCpuProfile(cpuProfilePath);
 # Known issues and limitations
 
 ## Memory usage
-When the OoM heapdump process kicks in, it's notorious for using a lot of memory. This is caused by a bug in V8/DevTools protocol and is reported here (https://bugs.chromium.org/p/chromium/issues/detail?id=768355); the protocol has no backpressure mechanism, which causes the heapdump to be pushed faster than the DevTools client can handle, causing in-memory buffering.
+When creating a heapdump on request, it's notorious for using a lot of memory. This is caused by a bug in V8/DevTools protocol and is reported here (https://bugs.chromium.org/p/chromium/issues/detail?id=768355); the protocol has no backpressure mechanism, which causes the heapdump to be pushed faster than the DevTools client can handle, causing in-memory buffering.
 
 This is not a problem if your server/machine has memory to spare, but can cause issues in memory restricted environments like a Docker container. Once the process exceeds the container memory threshold, it will be killed by OoMKiller (if enabled). This leads to an empty heapsnapshot file (0 bytes).
 
 Please vote for that issue to be fixed!
-
-## Large allocations & memory growth volatility
-
-As mentioned in https://github.com/blueconic/node-oom-heapdump/issues/1, this module cannot handle volatile memory growth caused by large allocations at once. This limitation is caused by the way this module works:
-* the module monitors GC activity; when a Full GC is done, it checks if the memory usage exceeds the configured threshold (70% by default).
-* this logic can only kick in when the process is still running.
-* when a large memory allocation is causing a direct OoM without the garbage collector being able to do its work, no heapdump will be created.
-
-Since this module relies on monitoring GC activity, this issue cannot be fixed. It would only be fixable if Node.js would provide some kind of hook before an Out of Memory occurs (described here: https://github.com/node-inspector/v8-profiler/issues/109).

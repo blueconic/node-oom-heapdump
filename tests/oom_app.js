@@ -1,10 +1,8 @@
 let path = require('path');
 
 let oom = require("../index.js")({
-    threshold: 70,
     path: path.resolve(__dirname, 'my_heapdump'),
     heapdumpOnOOM: true,
-    limit: 1,
     addTimestamp: false
 });
 

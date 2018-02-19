@@ -1,7 +1,7 @@
 {
   "name": "node-oom-heapdump",
-  "version": "1.0.12",
-  "description": "Create a V8 heap snapshot right before an \"Out of Memory\" error occurs, or create a heap snapshot on request.",
+  "version": "1.1.0",
+  "description": "Create a V8 heap snapshot when an \"Out of Memory\" error occurs, or create a heap snapshot or CPU profile on request.",
   "main": "index.js",
   "scripts": {
     "test": "node --max_old_space_size=80 --optimize_for_size --always_compact --inspect tests\\oom_app.js"
@@ -11,14 +11,16 @@
     "url": "git+https://github.com/blueconic/node-oom-heapdump.git"
   },
   "engines": {
-    "node": ">=6.3.0"
+    "node": ">=7.0.0"
   },
   "keywords": [
     "nodejs",
     "memory-leak",
     "out-of-memory",
     "heapdump",
-    "memory"
+    "memory",
+    "OnFatalError",
+    "OnOOMError"
   ],
   "author": "Paul Rütter",
   "license": "MIT",
@@ -30,8 +32,9 @@
     "eslint-config-google": "^0.9.1"
   },
   "dependencies": {
+    "bindings": "^1.3.0",
     "chrome-remote-interface": "^0.25.5",
-    "gc-stats": "^1.1.0",
+    "nan": "^2.8.0",
     "require-main-filename": "^1.0.1",
     "ws": "^4.0.0"
   }
