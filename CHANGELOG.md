@@ -1,4 +1,4 @@
-02-19-2018 Paul Rütter
+02-20-2018 Paul Rütter
 - 1.1.2 - Fixed heapdump generation on Unix machines.
 - Added option to use the "old" implementation (GCmonitoring), as the new implementatuion is more prone to run in with the OoM killer when in memory restricted environments (like Docker). The old implementation was less impacted by this, because the "threshold" parameter can be used to create the heapdump earlier.
 You can specify which OoM implementation to use, either: "NATIVE_HOOK" (default) or "GC_MONITORING" (old implementation).
