@@ -53,7 +53,8 @@ These might impact performance though.
 
 # Options
 * heapdumpOnOOM - boolean whether to create a heapdump when an out of memory occurs. Default true.
-* OOMImplementation - Either "NATIVE_HOOK" or "GC_MONITORING". "NATIVE_HOOK" relies on the native v8 hook and makes sure that the heapdump is actually created when the OoM occurs. It's more impacted by the OoMKiller of Unix systems though, when being run in memory resticted environments like Docker. 
+* OOMImplementation - Either "NATIVE_HOOK" or "GC_MONITORING". 
+"NATIVE_HOOK" relies on the native v8 hook and makes sure that the heapdump is actually created when the OoM occurs. It's more impacted by the OoMKiller of Unix systems though, when being run in memory restricted environments like Docker. 
 "GC_MONITORING" is the old implementation, which relies on GC monitoring. It's less impacted by OoMKiller, because the 'threshold' parameter determines when to create the heapdump. Use this option when you run into the OoMKiller of the Unix OS. Default is "NATIVE_HOOK".
 * path - the path where the heapdump ends up when an out of memory error occurs. '.heapsnapshot' is automatically appended. Defaults to this modules' directory.
 * addTimestamp - add a timestamp to the out of memory heapdump filename, to make it unique. Default is false.
