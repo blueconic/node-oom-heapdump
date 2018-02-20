@@ -1,5 +1,10 @@
 02-19-2018 Paul Rütter
-- Changed the way the "out of memory" heapdump is created, based on the work of 'trevnorris' (https://github.com/trevnorris/node-ofe/blob/master/ofe.cc). Using V8 engine isolate.SetOOMErrorHandler() to hook in on the out of memory event.
+- 1.1.2 - Fixed heapdump generation on Unix machines.
+- Added option to use the "old" implementation (GCmonitoring), as the new implementatuion is more prone to run in with the OoM killer when in memory restricted environments (like Docker). The old implementation was less impacted by this, because the "threshold" parameter can be used to create the heapdump earlier.
+You can specify which OoM implementation to use, either: "NATIVE_HOOK" (default) or "GC_MONITORING" (old implementation).
+
+02-19-2018 Paul Rütter
+- 1.1.0 - Changed the way the "out of memory" heapdump is created, based on the work of 'trevnorris' (https://github.com/trevnorris/node-ofe/blob/master/ofe.cc). Using V8 engine isolate.SetOOMErrorHandler() to hook in on the out of memory event.
 - Updated readme and removed deprecated 'limit' and 'threshold' parameters.
 - Removed 'gc-stats' module, as we no longer need it with the native C++ add-on.
 
