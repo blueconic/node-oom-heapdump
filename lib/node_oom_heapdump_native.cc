@@ -13,11 +13,6 @@ using namespace v8;
 char filename[256];
 bool addTimestamp;
 
-char* ToCString(Local<String> str) {
-  String::Utf8Value value(str);
-  return *value;
-}
-
 class FileOutputStream: public OutputStream {
   public:
     FileOutputStream(FILE* stream): stream_(stream) { }
@@ -60,17 +55,8 @@ void OnOOMError(const char *location, bool is_heap_oom) {
   if (fp == NULL) abort();
 
   // Create heapdump, depending on which Node.js version this can differ
-  // see https://github.com/trevnorris/node-ofe/blob/master/ofe.cc
-  #if NODE_VERSION_AT_LEAST(0, 11, 13)
-    Isolate* isolate = Isolate::GetCurrent();
-  #if NODE_VERSION_AT_LEAST(3, 0, 0)
-    const HeapSnapshot* snap = isolate->GetHeapProfiler()->TakeHeapSnapshot();
-  #else
-    const HeapSnapshot* snap = isolate->GetHeapProfiler()->TakeHeapSnapshot(String::Empty(isolate));
-  #endif
-  #else
-    const HeapSnapshot* snap = HeapProfiler::TakeSnapshot(String::Empty());
-  #endif
+  // for now, just support Node.js 7 and higher
+  const HeapSnapshot* snap = v8::Isolate::GetCurrent()->GetHeapProfiler()->TakeHeapSnapshot();
   
   FileOutputStream stream(fp);
   snap->Serialize(&stream, HeapSnapshot::kJSON);
@@ -87,7 +73,8 @@ void ParseArgumentsAndSetErrorHandler(const FunctionCallbackInfo<Value>& args) {
   // parse JS arguments
   // 1: filename
   // 2: addTimestamp boolean
-  strncpy(filename, ToCString(args[0]->ToString()), sizeof(filename) - 1);
+  String::Utf8Value fArg(args[0]->ToString());
+  strncpy(filename, (const char*)(*fArg), sizeof(filename) - 1);
   addTimestamp = args[1]->BooleanValue();
 }
 

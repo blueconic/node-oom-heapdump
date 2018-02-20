@@ -3,6 +3,7 @@ let path = require('path');
 let oom = require("../index.js")({
     path: path.resolve(__dirname, 'my_heapdump'),
     heapdumpOnOOM: true,
+    //OOMImplementation: "GC_MONITORING", // use the old implementation
     addTimestamp: false
 });
 
