@@ -1,4 +1,9 @@
-﻿09-06-2018 Paul Rütter
+﻿02-01-2019 Paul Rütter
+- 1.1.4
+- Updated dependencies
+- Add travis file to trigger a build. Just run a dummy script which does nothing; the default "npm install" will check if the native module compiles.
+
+09-06-2018 Paul Rütter
 - 1.1.3 - Updated dependencies, to mitigate security issues.
 
 02-20-2018 Paul Rütter

@@ -19,4 +19,4 @@ var handle = setInterval(function () {
     }
 
     console.error('Leaks: %d', leaks.length);
-}, 50);
+}, 100);
