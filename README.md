@@ -5,7 +5,7 @@ Node module which will create a V8 heap snapshot right before an "Out of Memory"
 
 It can also create heapdumps and CPU profiles on request like 'v8-profiler', but does this off-process so it doesn't interfere with execution of the main process.
 
-Tested on Node.js 7.x, 8.x, 9.x and 10.x.
+Tested on Node.js 7.x, 8.x, 9.x, 10.x and 11.x.
 No support for Node.js < 7.0 at the moment (although this can be fixed if needed).  
 
 # Why?
