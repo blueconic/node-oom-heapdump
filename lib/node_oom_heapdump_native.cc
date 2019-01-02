@@ -73,8 +73,13 @@ void ParseArgumentsAndSetErrorHandler(const FunctionCallbackInfo<Value>& args) {
   // parse JS arguments
   // 1: filename
   // 2: addTimestamp boolean
+  #if NODE_VERSION_AT_LEAST(9, 0, 0)
   String::Utf8Value fArg(isolate, args[0]->ToString());
+  #else
+  String::Utf8Value fArg(args[0]->ToString());
+  #endif
   strncpy(filename, (const char*)(*fArg), sizeof(filename) - 1);
+
   addTimestamp = args[1]->BooleanValue();
 }
 
