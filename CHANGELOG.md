@@ -1,4 +1,11 @@
-﻿02-01-2019 Paul Rütter
+﻿02-09-2019 Paul Rütter
+- 1.2.0-beta.0
+- Updated dependencies (nan update is needed for nodejs 12)
+- Add nodejs 12 to travis
+- Add experimental node 12 support. Still some deprecated API's are used, which should be avoided.
+See https://github.com/joyeecheung/node/blob/v8-maybe-doc/CPP_STYLE_GUIDE.md#use-maybe-version-of-v8-apis
+
+02-01-2019 Paul Rütter
 - 1.1.4
 - Updated dependencies
 - Add travis file to trigger a build. Just run a dummy script which does nothing; the default "npm install" will check if the native module compiles.
