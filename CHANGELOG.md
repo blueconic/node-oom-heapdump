@@ -1,4 +1,11 @@
-﻿02-09-2019 Paul Rütter
+﻿16-10-2019 Paul Rütter
+- 1.2.0
+- Node 12 support.
+- Still some deprecated API's are used, which should be avoided.
+See https://github.com/joyeecheung/node/blob/v8-maybe-doc/CPP_STYLE_GUIDE.md#use-maybe-version-of-v8-apis
+- Adjusted test script a bit, by removing some flags which seem to complicate nodejs 12 support.
+
+02-09-2019 Paul Rütter
 - 1.2.0-beta.0
 - Updated dependencies (nan update is needed for nodejs 12)
 - Add nodejs 12 to travis
