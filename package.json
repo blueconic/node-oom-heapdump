@@ -4,12 +4,18 @@
   "description": "Create a V8 heap snapshot when an \"Out of Memory\" error occurs, or create a heap snapshot or CPU profile on request.",
   "main": "index.js",
   "scripts": {
+    "install": "node-pre-gyp install --fallback-to-build",
     "test": "node --max_old_space_size=80 --inspect ./tests/oom_app.js",
     "dummy": "node -e \"process.exit(0)\""
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/blueconic/node-oom-heapdump.git"
+  },
+  "binary": {
+    "module_name": "node_oom_heapdump_native",
+    "module_path": "./build/Release",
+    "host": "https://your_module.s3-us-west-1.amazonaws.com"
   },
   "engines": {
     "node": ">=7.0.0"
@@ -37,6 +43,7 @@
     "chrome-remote-interface": "^0.28.0",
     "gc-stats": "^1.4.0",
     "nan": "^2.14.0",
+    "node-pre-gyp": "^0.15.0",
     "require-main-filename": "^2.0.0",
     "ws": "^7.1.2"
   }
