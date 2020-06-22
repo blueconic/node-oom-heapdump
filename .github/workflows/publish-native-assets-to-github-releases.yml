@@ -9,11 +9,12 @@ on:
     
 
 jobs:
-  augment-linux:
-    runs-on: [ubuntu-latest,  windows-latest]
+  augment-release:
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         node-version: [8.x, 10.x, 12.x]
+        os: [ubuntu-latest, macos-latest, windows-latest]
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
@@ -23,7 +24,7 @@ jobs:
     - run: |
         npm install --build-from-source
         ./node_modules/.bin/node-pre-gyp package
-    - name: Upload native binaries
+    - name: Upload native binaries for Node ${{ matrix.node-version }} for ${{ matrix.os }}
       uses: csexton/release-asset-action@v2
       with:
         pattern: "build/stage/*.tar.gz"
