@@ -28,3 +28,4 @@ jobs:
       with:
         pattern: "build/stage/*.tar.gz"
         github-token: ${{ secrets.GITHUB_TOKEN }}
+        release-url: ${{ github.event.release.upload_url }}
