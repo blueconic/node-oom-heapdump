@@ -22,8 +22,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: |
-        npm install --build-from-source
-        ./node_modules/.bin/node-pre-gyp package
+        npx node-pre-gyp install --fallback-to-build
+        npx node-pre-gyp package
     - name: Upload native binaries for Node ${{ matrix.node-version }} for ${{ matrix.os }}
       uses: csexton/release-asset-action@v2
       with:
