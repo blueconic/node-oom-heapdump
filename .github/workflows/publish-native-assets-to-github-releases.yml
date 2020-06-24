@@ -22,15 +22,15 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - name: patch node gyp on windows to support Visual Studio 2019
-        if: matrix.os == 'windows-latest'
-        shell: powershell
-        run: |
-          npm install --global node-gyp@latest
-          npm prefix -g | % {npm config set node_gyp "$_\node_modules\node-gyp\bin\node-gyp.js"}
+      if: matrix.os == 'windows-latest'
+      shell: powershell
+      run: |
+        npm install --global node-gyp@latest
+        npm prefix -g | % {npm config set node_gyp "$_\node_modules\node-gyp\bin\node-gyp.js"}
     - name: build using node-pre-gyp
-        run: |
-          npm install --build-from-source
-          ./node_modules/.bin/node-pre-gyp package
+      run: |
+        npm install --build-from-source
+        ./node_modules/.bin/node-pre-gyp package
     - name: Upload native binaries for Node ${{ matrix.node-version }} for ${{ matrix.os }}
       uses: csexton/release-asset-action@v2
       with:
