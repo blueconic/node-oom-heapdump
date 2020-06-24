@@ -1,4 +1,7 @@
-﻿16-10-2019 Paul Rütter
+﻿24-06-2020 Stuart Miller / Paul Rütter
+- Stuart Miller added support for having prebuilt binaries for all supported Node.js versions.
+
+16-10-2019 Paul Rütter
 - 1.2.0
 - Node 12 support.
 - Still some deprecated API's are used, which should be avoided.

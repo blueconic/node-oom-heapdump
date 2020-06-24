@@ -8,6 +8,8 @@ It can also create heapdumps and CPU profiles on request like 'v8-profiler', but
 Tested on Node.js 7.x, 8.x, 9.x, 10.x, 11.x and 12.x.
 No support for Node.js < 7.0 at the moment (although this can be fixed if needed).  
 
+Also comes with prebuilt binaries (hosted on Github releases), thanks to Stuart Miller (https://github.com/spmiller).
+
 # Why?
 When running nodejs processes in a low memory environment, every out of memory that occurs is interesting.
 To figure out why a process went out of memory, a heap snapshot (e.g. heapdump) can help a lot.
