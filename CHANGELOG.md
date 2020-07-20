@@ -1,4 +1,9 @@
-﻿24-06-2020 Stuart Miller / Paul Rütter
+﻿20-07-2020  Paul Rütter
+- 1.3.1
+- Revert prebuilt binaries, since it's a breaking change.
+
+24-06-2020 Stuart Miller / Paul Rütter
+- 1.3.0
 - Stuart Miller added support for having prebuilt binaries for all supported Node.js versions.
 
 16-10-2019 Paul Rütter
