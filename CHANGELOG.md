@@ -1,4 +1,8 @@
-﻿20-07-2020  Paul Rütter
+﻿02-08-2020  Paul Rütter
+- 2.0.1
+- Fixed prebuilt binaries path.
+
+20-07-2020  Paul Rütter
 - 2.0
 - Added prebuilt binaries again, in a new major version. To "solve" https://github.com/blueconic/node-oom-heapdump/issues/13.
 

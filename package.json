@@ -1,6 +1,6 @@
 {
   "name": "node-oom-heapdump",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Create a V8 heap snapshot when an \"Out of Memory\" error occurs, or create a heap snapshot or CPU profile on request.",
   "main": "index.js",
   "scripts": {
