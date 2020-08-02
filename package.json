@@ -16,7 +16,7 @@
   "binary": {
     "module_name": "node_oom_heapdump_native",
     "module_path": "./build/Release",
-    "host": "https://github.com/blueconic/node-oom-heapdump/releases/download/"
+    "host": "https://github.com/blueconic/node-oom-heapdump/releases/download/{version}"
   },
   "engines": {
     "node": ">=7.0.0"
