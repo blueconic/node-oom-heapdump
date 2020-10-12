@@ -1,4 +1,4 @@
-12-10-2019 Paul Rütter
+12-10-2020 Paul Rütter
 - 2.1.0
 - Added Node 14 support
 
