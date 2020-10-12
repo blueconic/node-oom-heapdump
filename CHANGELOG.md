@@ -1,6 +1,10 @@
-﻿16-10-2019 Paul Rütter
-- 2.1.0-beta.0
-- Node 14 support.
+12-10-2019 Paul Rütter
+- 2.1.0
+- Added Node 14 support
+
+12-10-2020  Paul Rütter
+- 2.0.2
+- Fix latest published version, was replaced with beta.
 
 02-08-2020  Paul Rütter
 - 2.0.1
