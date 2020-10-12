@@ -73,7 +73,7 @@ void ParseArgumentsAndSetErrorHandler(const FunctionCallbackInfo<Value>& args) {
   // parse JS arguments
   // 1: filename
   // 2: addTimestamp boolean
-  #if NODE_VERSION_AT_LEAST(14, 0, 0)
+  #if NODE_VERSION_AT_LEAST(13, 0, 0)
   Local<Context> context = isolate->GetCurrentContext();
   String::Utf8Value fArg(isolate, args[0]->ToString(context).ToLocalChecked());
   #elif NODE_VERSION_AT_LEAST(12, 0, 0)
