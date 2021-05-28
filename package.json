@@ -46,6 +46,6 @@
     "nan": "^2.14.2",
     "node-pre-gyp": "^0.17.0",
     "require-main-filename": "^2.0.0",
-    "ws": "^7.4.1"
+    "ws": "^7.4.6"
   }
 }
