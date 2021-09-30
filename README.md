@@ -11,7 +11,7 @@ No support for Node.js < 7.0 at the moment (although this can be fixed if needed
 Also comes with prebuilt binaries (hosted on Github releases), thanks to Stuart Miller (https://github.com/spmiller).
 
 ## Node.js 14.18.x
-https://github.com/nodejs/node/pull/33010 landed in Node.js 14.18.0, which makes this module no longer needed.
+https://github.com/nodejs/node/pull/33010 landed in Node.js 14.18.0, which makes this module no longer needed for heapdumps on out of memory.
 One can use the `--heapsnapshot-near-heap-limit` Node.js CLI option as an alternative.
 See https://nodejs.org/dist/latest-v14.x/docs/api/cli.html#cli_heapsnapshot_near_heap_limit_max_count.
 
