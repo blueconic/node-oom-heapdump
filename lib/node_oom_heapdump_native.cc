@@ -12,6 +12,7 @@ using namespace v8;
 
 char filename[256];
 bool addTimestamp;
+bool processingOOM = false;
 
 class FileOutputStream: public OutputStream {
   public:
@@ -33,6 +34,12 @@ class FileOutputStream: public OutputStream {
 };
 
 void OnOOMError(const char *location, bool is_heap_oom) {
+  if (processingOOM) {
+    fprintf(stderr, "FATAL: OnOOMError called more than once.\n");
+    exit(2);
+  }
+  processingOOM = true;
+
   if (addTimestamp) {
     // Add timestamp to filename
     time_t rawtime;
@@ -44,7 +51,7 @@ void OnOOMError(const char *location, bool is_heap_oom) {
     pch = strstr (filename,".heapsnapshot");
     strncpy (pch,"",1);
     strcat (filename, "-%Y%m%dT%H%M%S.heapsnapshot");
-    
+
     char newFilename[256];
     strftime(newFilename, sizeof(filename), filename, timeinfo);
     strcpy(filename, newFilename);
@@ -69,7 +76,7 @@ void OnOOMError(const char *location, bool is_heap_oom) {
 void ParseArgumentsAndSetErrorHandler(const FunctionCallbackInfo<Value>& args) {
   Isolate* isolate = args.GetIsolate();
   isolate->SetOOMErrorHandler(OnOOMError);
-  
+
   // parse JS arguments
   // 1: filename
   // 2: addTimestamp boolean
