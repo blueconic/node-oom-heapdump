@@ -33,6 +33,10 @@ class FileOutputStream: public OutputStream {
     FILE* stream_;
 };
 
+size_t RaiseLimit(void* data, size_t current_heap_limit, size_t initial_heap_limit) {
+  return current_heap_limit + 10u * 1024 * 1024; // 10MiB
+}
+
 void OnOOMError(const char *location, bool is_heap_oom) {
   if (processingOOM) {
     fprintf(stderr, "FATAL: OnOOMError called more than once.\n");
@@ -61,10 +65,19 @@ void OnOOMError(const char *location, bool is_heap_oom) {
   FILE* fp = fopen(filename, "w");
   if (fp == NULL) abort();
 
+  auto* isolate = v8::Isolate::GetCurrent();
+
+  // Capturing a heap snapshot forces a garbage collection which can, in turn,
+  // trigger the OOM flow which causes recursion. To prevent this, this callback
+  // will raise the heap limit if the GC tries to go down that path again.
+  // Normally we would want to add a call to RemoveNearHeapLimitCallback() after
+  // we are done, but that is not necessary since we exit() before it matters.
+  isolate->AddNearHeapLimitCallback(RaiseLimit, nullptr);
+
   // Create heapdump, depending on which Node.js version this can differ
   // for now, just support Node.js 7 and higher
-  const HeapSnapshot* snap = v8::Isolate::GetCurrent()->GetHeapProfiler()->TakeHeapSnapshot();
-  
+  const HeapSnapshot* snap = isolate->GetHeapProfiler()->TakeHeapSnapshot();
+
   FileOutputStream stream(fp);
   snap->Serialize(&stream, HeapSnapshot::kJSON);
   fclose(fp);
