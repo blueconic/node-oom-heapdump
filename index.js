@@ -81,31 +81,10 @@ class NodeOomHeapdumpAPI {
 
 // utility functions
 function parseOptions(options) {
-  if (options.heapdumpOnOOM === undefined) {
-    options.heapdumpOnOOM = true;
-  }
-  if (options.OOMImplementation === undefined){
-    // default is the "new" implementation
-    // the other option is "GC_MONITORING", which is the old implementation (which is less impacted by OoMKiller)
-    options.OOMImplementation = "NATIVE_HOOK";
-  }
   if (options.port === undefined) {
     options.port = 9229;
   } else {
     options.port = parseInt(options.port);
-  }
-  if (options.path === undefined) {
-    options.path = "OoM-pid-" + process.pid;
-  }
-  if (options.limit === undefined) {
-    options.limit = 3;
-  } else {
-    options.limit = parseInt(options.limit);
-  }
-  if (options.threshold === undefined) {
-    options.threshold = 70;
-  } else {
-    options.threshold = parseInt(options.threshold);
   }
   if (options.addTimestamp === undefined) {
     options.addTimestamp = false;

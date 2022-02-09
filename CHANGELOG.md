@@ -1,3 +1,14 @@
+﻿09-02-2022 Paul Rütter
+- 3.0.0
+- Updated dependencies to resolve https://github.com/blueconic/node-oom-heapdump/issues/19
+- Removed `gc-stats` as it was not used a lot anymore (breaking change) and contained security issues.
+- Removed creating heapdumps on out of memory, as this is superseeded by native node functionality.
+- Remove unused dependencies and native code.
+
+21-12-2020 Paul Rütter
+- 2.2.0
+- Updated ini
+
 12-10-2020 Paul Rütter
 - 2.1.0
 - Added Node 14 support
