@@ -26,6 +26,7 @@ jobs:
         if: matrix.os == 'windows-latest'
         shell: powershell
         run: |
+          npm install --global npm@latest
           npm install --global node-gyp@latest
           npm prefix -g | % {npm config set node_gyp "$_\node_modules\node-gyp\bin\node-gyp.js"}
       - name: build using node-pre-gyp
