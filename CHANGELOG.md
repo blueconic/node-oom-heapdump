@@ -1,3 +1,10 @@
+﻿10-02-2022 Paul Rütter
+- 3.0.0
+- Added Node 16 support (by merging https://github.com/blueconic/node-oom-heapdump/pull/20, Thanks Simon Abbott!).
+  This fixes a recursion issue.
+- Removed "GC_MONITORING" at it relied on `gc-stats`, which is no longer maintained (and contained security issues)
+- Updated `node-pre-gyp` to `@mapbox/node-pre-gyp` so security issues are mitigated
+
 12-10-2020 Paul Rütter
 - 2.1.0
 - Added Node 14 support
