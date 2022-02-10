@@ -5,10 +5,15 @@ Node module which will create a V8 heap snapshot right before an "Out of Memory"
 
 It can also create heapdumps and CPU profiles on request like 'v8-profiler', but does this off-process so it doesn't interfere with execution of the main process.
 
-Tested on Node.js 7.x, 8.x, 9.x, 10.x, 11.x and 12.x.
-No support for Node.js < 7.0 at the moment (although this can be fixed if needed).  
+Tested on Node.js 10.x, 11.x, 12.x, 13.x, 14.x, 15.x and 16.x.
+No support for Node.js < 10.x at the moment in version 3.0.0, use version 2.2.0 for if needed.  
 
 Also comes with prebuilt binaries (hosted on Github releases), thanks to Stuart Miller (https://github.com/spmiller).
+
+## Node.js 14.18.x
+https://github.com/nodejs/node/pull/33010 landed in Node.js 14.18.0, which makes this module no longer needed for heapdumps on out of memory.
+One can use the `--heapsnapshot-near-heap-limit` Node.js CLI option as an alternative.
+See https://nodejs.org/dist/latest-v14.x/docs/api/cli.html#cli_heapsnapshot_near_heap_limit_max_count.
 
 # Why?
 When running nodejs processes in a low memory environment, every out of memory that occurs is interesting.
@@ -58,16 +63,11 @@ On Node.js 12.x the latter two flags seem to cause some stability issues (see ht
 
 # Options
 * heapdumpOnOOM - boolean whether to create a heapdump when an out of memory occurs. Default true.
-* OOMImplementation - Either "NATIVE_HOOK" or "GC_MONITORING". 
+* OOMImplementation - Only "NATIVE_HOOK" is supported starting from 3.0.0
 "NATIVE_HOOK" relies on the native v8 hook and makes sure that the heapdump is actually created when the OoM occurs. It's more impacted by the OoMKiller of Unix systems though, when being run in memory restricted environments like Docker. 
-"GC_MONITORING" is the old implementation, which relies on GC monitoring. It's less impacted by OoMKiller, because the 'threshold' parameter determines when to create the heapdump. Use this option when you run into the OoMKiller of the Unix OS. Default is "NATIVE_HOOK".
 * path - the path where the heapdump ends up when an out of memory error occurs. '.heapsnapshot' is automatically appended. Defaults to this modules' directory.
 * addTimestamp - add a timestamp to the out of memory heapdump filename, to make it unique. Default is false.
 * port - optionally, the alternative DevTools protocol port. Defaults to 9229. Should map on the port given to the --inspect arg.
-
-The following options are only relevant when OOMImplementation="GC_MONITORING".
-* limit - optionally, specify a limit to how many heapdumps will be created when being above the threshold. Default is 3.
-* threshold - integer between 0 and 100 (%) which determines when to make the heapdump. When the used heapSize exceeds the threshold, a heapdump is made. This value can be tuned depending on your configuration; if memory usage is very volatile, a lower value might make more sense. Default is 70.
 
 # API
 Besides creating heapdumps when an out of memory error occurs, there also is an API for creating heapdumps and CPU profiles on request. See below for the currently available API.

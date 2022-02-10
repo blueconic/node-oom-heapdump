@@ -1,4 +1,32 @@
-﻿24-06-2020 Stuart Miller / Paul Rütter
+﻿10-02-2022 Paul Rütter
+- 3.0.0
+- Added Node 16 support (by merging https://github.com/blueconic/node-oom-heapdump/pull/20, Thanks Simon Abbott!).
+  This fixes a recursion issue.
+- Removed "GC_MONITORING" at it relied on `gc-stats`, which is no longer maintained (and contained security issues)
+- Updated `node-pre-gyp` to `@mapbox/node-pre-gyp` so security issues are mitigated
+
+12-10-2020 Paul Rütter
+- 2.1.0
+- Added Node 14 support
+
+12-10-2020  Paul Rütter
+- 2.0.2
+- Fix latest published version, was replaced with beta.
+
+02-08-2020  Paul Rütter
+- 2.0.1
+- Fixed prebuilt binaries path.
+
+20-07-2020  Paul Rütter
+- 2.0
+- Added prebuilt binaries again, in a new major version. To "solve" https://github.com/blueconic/node-oom-heapdump/issues/13.
+
+20-07-2020  Paul Rütter
+- 1.3.1
+- Revert prebuilt binaries, since it's a breaking change.
+
+24-06-2020 Stuart Miller / Paul Rütter
+- 1.3.0
 - Stuart Miller added support for having prebuilt binaries for all supported Node.js versions.
 
 16-10-2019 Paul Rütter
