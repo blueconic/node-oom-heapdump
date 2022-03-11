@@ -1,4 +1,4 @@
-[![TravisCI Build Status](https://travis-ci.org/blueconic/node-oom-heapdump.svg?branch=master)](https://travis-ci.org/blueconic/node-oom-heapdump)
+[![Build status](https://github.com/blueconic/node-oom-heapdump/actions/workflows/publish-native-assets-to-github-releases.yml/badge.svg)](https://github.com/blueconic/node-oom-heapdump/actions/workflows/publish-native-assets-to-github-releases.yml)
 
 # node-oom-heapdump
 Node module which will create a V8 heap snapshot right before an "Out of Memory" error occurs.
