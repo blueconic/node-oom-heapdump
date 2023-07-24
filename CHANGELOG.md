@@ -1,4 +1,8 @@
 ﻿10-02-2022 Paul Rütter
+- 3.0.1
+- Fixed building native artifacts on Windows, thanks spmiller! https://github.com/blueconic/node-oom-heapdump/issues/22
+
+10-02-2022 Paul Rütter
 - 3.0.0
 - Added Node 16 support (by merging https://github.com/blueconic/node-oom-heapdump/pull/20, Thanks Simon Abbott!).
   This fixes a recursion issue.

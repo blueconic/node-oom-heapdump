@@ -1,11 +1,11 @@
-[![TravisCI Build Status](https://travis-ci.org/blueconic/node-oom-heapdump.svg?branch=master)](https://travis-ci.org/blueconic/node-oom-heapdump)
+[![Build status](https://github.com/blueconic/node-oom-heapdump/actions/workflows/publish-native-assets-to-github-releases.yml/badge.svg)](https://github.com/blueconic/node-oom-heapdump/actions/workflows/publish-native-assets-to-github-releases.yml)
 
 # node-oom-heapdump
 Node module which will create a V8 heap snapshot right before an "Out of Memory" error occurs.
 
 It can also create heapdumps and CPU profiles on request like 'v8-profiler', but does this off-process so it doesn't interfere with execution of the main process.
 
-Tested on Node.js 10.x, 11.x, 12.x, 13.x, 14.x, 15.x and 16.x.
+Tested on Node.js 10.x, 11.x, 12.x, 13.x, 14.x, 15.x, 16.x, 17.x and 18.x.
 No support for Node.js < 10.x at the moment in version 3.0.0, use version 2.2.0 for if needed.  
 
 Also comes with prebuilt binaries (hosted on Github releases), thanks to Stuart Miller (https://github.com/spmiller).
