@@ -1,4 +1,14 @@
-﻿10-02-2022 Paul Rütter
+﻿04-08-2023 Paul Rütter
+- 3.0.3
+- Prefer IPv4 (https://github.com/blueconic/node-oom-heapdump/pull/29)
+- Update dependencies
+
+24-07-2022 Paul Rütter
+- 3.0.2
+- Add Node18, as it's LTS now
+- Upgrade dependencies
+
+10-02-2022 Paul Rütter
 - 3.0.1
 - Fixed building native artifacts on Windows, thanks spmiller! https://github.com/blueconic/node-oom-heapdump/issues/22
 
