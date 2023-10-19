@@ -12,4 +12,5 @@ node_js:
   - "16"
   - "17"
   - "18"
+  - "20"
 script: npm run dummy
