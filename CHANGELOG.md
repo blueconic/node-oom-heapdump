@@ -1,4 +1,8 @@
-﻿04-08-2023 Paul Rütter
+﻿19-10-2023 Paul Rütter
+- 3.0.4
+- Update dependencies
+
+04-08-2023 Paul Rütter
 - 3.0.3
 - Prefer IPv4 (https://github.com/blueconic/node-oom-heapdump/pull/29)
 - Update dependencies
