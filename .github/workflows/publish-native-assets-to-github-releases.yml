@@ -29,11 +29,6 @@ jobs:
           npm install --global npm@latest
           npm install --global node-gyp@latest
           npm prefix -g | % {npm config set node_gyp "$_\node_modules\node-gyp\bin\node-gyp.js"}
-      - name: patch node gyp on other platforms to latest
-        if: matrix.os != 'windows-latest'
-        run: |
-          npm install --global node-gyp@latest
-          npm config set node_gyp $(npm prefix -g)/lib/node_modules/node-gyp/bin/node-gyp.js
       - name: build using node-pre-gyp
         run: |
           npm install --build-from-source
