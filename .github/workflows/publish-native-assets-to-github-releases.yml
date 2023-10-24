@@ -19,9 +19,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '2.7.18'
       - name: Add msbuild to PATH
         if: matrix.os == 'windows-latest'
         uses: microsoft/setup-msbuild@v1.1
@@ -32,6 +29,10 @@ jobs:
           npm install --global npm@latest
           npm install --global node-gyp@latest
           npm prefix -g | % {npm config set node_gyp "$_\node_modules\node-gyp\bin\node-gyp.js"}
+      - name: patch node gyp on other platforms to latest
+        if: matrix.os != 'windows-latest'
+        run: |
+          npm explore npm/node_modules/@npmcli/run-script -g -- npm_config_global=false npm install node-gyp@latest
       - name: build using node-pre-gyp
         run: |
           npm install --build-from-source
