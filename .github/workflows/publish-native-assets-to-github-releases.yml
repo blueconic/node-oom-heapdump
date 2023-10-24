@@ -32,8 +32,8 @@ jobs:
       - name: patch node gyp on other platforms to latest
         if: matrix.os != 'windows-latest'
         run: |
-          npm install --global npm@latest
-          npm explore npm/node_modules/@npmcli/run-script -g -- npm_config_global=false npm install node-gyp@latest
+          npm install --global node-gyp@latest
+          npm config set node_gyp $(npm prefix -g)/lib/node_modules/node-gyp/bin/node-gyp.js
       - name: build using node-pre-gyp
         run: |
           npm install --build-from-source
