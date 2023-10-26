@@ -9,7 +9,7 @@ Tested on Node.js 10.x, 11.x, 12.x, 13.x, 14.x, 15.x, 16.x, 17.x and 18.x.
 No support for Node.js < 10.x at the moment in version 3.0.0, use version 2.2.0 for if needed.  
 
 Also comes with prebuilt binaries (hosted on Github releases), thanks to Stuart Miller (https://github.com/spmiller).
-From 3.1.0, prebuilt binaries are only shipped from 16.x upwards.
+From 3.1.0, prebuilt binaries are only shipped for Node.js 16.x and upwards.
 
 ## Node.js 14.18.x
 https://github.com/nodejs/node/pull/33010 landed in Node.js 14.18.0, which makes this module no longer needed for heapdumps on out of memory.
