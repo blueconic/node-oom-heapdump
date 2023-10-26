@@ -1,4 +1,8 @@
-﻿19-10-2023 Paul Rütter
+﻿26-10-2023 Paul Rütter
+- 3.1.0
+- https://github.com/blueconic/node-oom-heapdump/issues/28: only build prebuilt binaries for > 16.x, as Github Actions no longer supports older versions.
+
+19-10-2023 Paul Rütter
 - 3.0.4
 - Update dependencies
 
