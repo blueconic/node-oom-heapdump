@@ -94,17 +94,19 @@ void OnOOMErrorHandler()
   exit(1);
 }
 
+#if NODE_VERSION_AT_LEAST(20, 0, 0)
 void OnOOMErrorNode20(const char *location, const OOMDetails &details)
 {
   // Node20+
   OnOOMErrorHandler();
 }
-
+#else
 void OnOOMErrorNode18(const char *location, bool is_heap_oom)
 {
   // Up until Node18
   OnOOMErrorHandler();
 }
+#endif
 
 void ParseArgumentsAndSetErrorHandler(const FunctionCallbackInfo<Value> &args)
 {
