@@ -39,3 +39,26 @@ jobs:
           pattern: "build/stage/*.tar.gz"
           github-token: ${{ secrets.GITHUB_TOKEN }}
           release-url: ${{ github.event.release.upload_url }}
+
+  alpine-release:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12, 14]
+    container: node:${{ matrix.node-version }}-alpine3.12
+    steps:
+      - uses: actions/checkout@v2
+      - name: install build deps
+        run: |
+          apk add g++ make python2
+      - name: build using node-pre-gyp
+        run: |
+          npm install
+          npx node-pre-gyp rebuild
+          npx node-pre-gyp package
+      - name: Upload native binaries for Node ${{ matrix.node-version }} for alpine
+        uses: csexton/release-asset-action@v2
+        with:
+          pattern: "build/stage/*.tar.gz"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          release-url: ${{ github.event.release.upload_url }}
