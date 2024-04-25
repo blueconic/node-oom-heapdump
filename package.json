@@ -1,6 +1,6 @@
 {
   "name": "node-oom-heapdump",
-  "version": "3.2.1",
+  "version": "3.2.2",
   "description": "Create a V8 heap snapshot when an \"Out of Memory\" error occurs, or create a heap snapshot or CPU profile on request.",
   "main": "index.js",
   "scripts": {
@@ -19,7 +19,7 @@
     "host": "https://github.com/blueconic/node-oom-heapdump/releases/download/{version}"
   },
   "engines": {
-    "node": ">=7.0.0"
+    "node": ">=10.0.0"
   },
   "keywords": [
     "nodejs",
@@ -43,8 +43,8 @@
     "@mapbox/node-pre-gyp": "^1.0.11",
     "bindings": "^1.5.0",
     "chrome-remote-interface": "^0.33.0",
-    "nan": "^2.18.0",
+    "nan": "^2.19.0",
     "require-main-filename": "^2.0.0",
-    "ws": "^8.14.2"
+    "ws": "^8.16.0"
   }
 }

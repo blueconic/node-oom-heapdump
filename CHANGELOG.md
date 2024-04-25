@@ -1,4 +1,8 @@
-﻿27-10-2023 Paul Rütter
+﻿25-04-2024 Paul Rütter
+- 3.2.2
+- Release to update dependencies
+
+27-10-2023 Paul Rütter
 - 3.2.0
 - https://github.com/blueconic/node-oom-heapdump/issues/31: Node20 support
 - Change native code to use different method signature for Node20 and above, remain compatible for Node18 and below.
