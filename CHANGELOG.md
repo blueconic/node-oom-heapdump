@@ -1,4 +1,8 @@
-﻿25-04-2024 Paul Rütter
+﻿16-05-2024 Paul Rütter
+- 3.2.3
+- Release to fix prebuilt binaries for node 22.x
+
+25-04-2024 Paul Rütter
 - 3.2.2
 - Release to update dependencies
 
