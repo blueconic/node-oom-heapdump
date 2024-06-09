@@ -23,18 +23,40 @@ jobs:
       - name: Add msbuild to PATH
         if: matrix.os == 'windows-latest'
         uses: microsoft/setup-msbuild@v1.1
-      - name: patch node gyp on windows to support Visual Studio 2019
+      - name: Install node-gyp
         if: matrix.os == 'windows-latest'
         shell: powershell
         run: |
           npm install --global npm@latest
           npm install --global node-gyp@latest
-          npm prefix -g | % {npm config set node_gyp "$_\node_modules\node-gyp\bin\node-gyp.js"}
       - name: build using node-pre-gyp
         run: |
           npm install --build-from-source
           npx node-pre-gyp package
       - name: Upload native binaries for Node ${{ matrix.node-version }} for ${{ matrix.os }}
+        uses: csexton/release-asset-action@v2
+        with:
+          pattern: "build/stage/*.tar.gz"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          release-url: ${{ github.event.release.upload_url }}
+
+  alpine-release:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 20, 22]
+    container: node:${{ matrix.node-version }}-alpine3.20
+    steps:
+      - uses: actions/checkout@v2
+      - name: install build deps
+        run: |
+          apk add g++ make python3
+      - name: build using node-pre-gyp
+        run: |
+          npm install
+          npx node-pre-gyp rebuild
+          npx node-pre-gyp package
+      - name: Upload native binaries for Node ${{ matrix.node-version }} for alpine
         uses: csexton/release-asset-action@v2
         with:
           pattern: "build/stage/*.tar.gz"
