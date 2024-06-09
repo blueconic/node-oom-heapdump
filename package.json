@@ -16,6 +16,7 @@
   "binary": {
     "module_name": "node_oom_heapdump_native",
     "module_path": "./build/Release",
+    "package_name": "{module_name}-v{version}-{platform}-{arch}-{libc}.tar.gz",
     "host": "https://github.com/blueconic/node-oom-heapdump/releases/download/{version}"
   },
   "engines": {
