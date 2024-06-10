@@ -1,4 +1,8 @@
-﻿16-05-2024 Paul Rütter
+﻿10-06-2024 Paul Rütter
+- 3.3.0
+- Add prebuilt binaries for Alpine, https://github.com/blueconic/node-oom-heapdump/pull/16
+
+16-05-2024 Paul Rütter
 - 3.2.3
 - Release to fix prebuilt binaries for node 22.x
 
