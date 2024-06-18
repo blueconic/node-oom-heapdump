@@ -1,4 +1,8 @@
-﻿10-06-2024 Paul Rütter
+﻿18-06-2024 Paul Rütter
+- 3.3.1
+- Upgrade dependencies due to https://security.snyk.io/vuln/SNYK-JS-WS-7266574
+
+10-06-2024 Paul Rütter
 - 3.3.0
 - Add prebuilt binaries for Alpine, https://github.com/blueconic/node-oom-heapdump/pull/16
 
