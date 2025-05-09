@@ -12,6 +12,16 @@ Also comes with prebuilt binaries (hosted on Github releases), thanks to Stuart 
 From 3.1.0, prebuilt binaries are only shipped for Node.js 16.x and upwards.
 From 3.2.3, prebuilt binaries are only shipped for Node.js 18.x and upwards.
 
+## Node 22.x
+Since node 22.x, there is a new CLI flag for generating heapdumps. This one is supplied by V8 (not Node.js) and is more reliant and efficient in creating the heapdumps than Node.js' `--heapsnapshot-near-heap-limit`.
+More information: https://github.com/nodejs/node/issues/50711#issuecomment-2149559816
+
+```
+node --heap-snapshot-on-oom index.js
+```
+Since node 22.x we had issues with no heapdumps being created in production sometimes (via `--heapsnapshot-near-heap-limit`), which did work when using V8's `--heap-snapshot-on-oom`.
+The only disadvantage i encountered is that the filename of the heapdump file does not include a process ID, just the timestamp.
+
 ## Node.js 14.18.x
 https://github.com/nodejs/node/pull/33010 landed in Node.js 14.18.0, which makes this module no longer needed for heapdumps on out of memory.
 One can use the `--heapsnapshot-near-heap-limit` Node.js CLI option as an alternative.
