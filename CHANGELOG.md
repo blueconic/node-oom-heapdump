@@ -1,5 +1,5 @@
 ﻿12-05-2025 Paul Rütter
-- 3.5.0
+- 3.6.0
 - Upgrade dependencies
 
 11-12-2024 Paul Rütter
