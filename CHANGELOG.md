@@ -1,4 +1,8 @@
-﻿11-12-2024 Paul Rütter
+﻿12-05-2025 Paul Rütter
+- 3.5.0
+- Upgrade dependencies
+
+11-12-2024 Paul Rütter
 - 3.4.0
 - Upgrade dependencies due to https://security.snyk.io/vuln/SNYK-JS-INFLIGHT-6095116
 
