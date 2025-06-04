@@ -43,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18, 20, 22]
+        node-version: [18, 20, 22, 24]
     container: node:${{ matrix.node-version }}-alpine3.20
     steps:
       - uses: actions/checkout@v2
