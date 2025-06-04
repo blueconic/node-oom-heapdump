@@ -11,6 +11,7 @@ No support for Node.js < 10.x at the moment in version 3.0.0, use version 2.2.0 
 Also comes with prebuilt binaries (hosted on Github releases), thanks to Stuart Miller (https://github.com/spmiller).
 From 3.1.0, prebuilt binaries are only shipped for Node.js 16.x and upwards.
 From 3.2.3, prebuilt binaries are only shipped for Node.js 18.x and upwards.
+In 3.7.0, prebuilt binaries for node 24.x were added.
 
 ## Node 22.x
 Since node 22.x, there is a new CLI flag for generating heapdumps. This one is supplied by V8 (not Node.js) and is more reliant and efficient in creating the heapdumps than Node.js' `--heapsnapshot-near-heap-limit`.
