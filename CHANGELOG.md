@@ -1,4 +1,12 @@
-﻿12-05-2025 Paul Rütter
+﻿03-07-2025 Paul Rütter
+- 3.7.1
+- Fix for https://github.com/blueconic/node-oom-heapdump/security/dependabot/12 by updating dependencies
+
+04-06-2025 Paul Rütter
+- 3.7.0
+- Node 24 binaries
+
+12-05-2025 Paul Rütter
 - 3.6.0
 - Upgrade dependencies
 
