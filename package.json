@@ -1,6 +1,6 @@
 {
   "name": "node-oom-heapdump",
-  "version": "3.7.2",
+  "version": "3.7.3",
   "description": "Create a V8 heap snapshot when an \"Out of Memory\" error occurs, or create a heap snapshot or CPU profile on request.",
   "main": "index.js",
   "scripts": {
@@ -41,11 +41,11 @@
     "eslint-config-google": "^0.14.0"
   },
   "dependencies": {
-    "@mapbox/node-pre-gyp": "2.0.0",
+    "@mapbox/node-pre-gyp": "2.0.3",
     "bindings": "^1.5.0",
     "chrome-remote-interface": "^0.33.3",
-    "nan": "^2.23.1",
+    "nan": "^2.24.0",
     "require-main-filename": "^2.0.0",
-    "ws": "^8.18.3"
+    "ws": "^8.19.0"
   }
 }
