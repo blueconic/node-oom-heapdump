@@ -1,4 +1,9 @@
-﻿23-02-2026 Paul Rütter
+﻿13-03-2026 Paul Rütter
+
+- 3.7.6
+- Fix for https://github.com/blueconic/node-oom-heapdump/security/dependabot/26 by updating dependencies
+
+23-02-2026 Paul Rütter
 
 - 3.7.5
 - Fix for https://github.com/blueconic/node-oom-heapdump/security/dependabot/21 by updating dependencies
