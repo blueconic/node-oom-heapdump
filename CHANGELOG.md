@@ -1,5 +1,11 @@
 ﻿13-03-2026 Paul Rütter
 
+- 3.8.0
+- Fix safety, thread-safety, and resource management bugs in native C++ OOM handler 
+See https://github.com/blueconic/node-oom-heapdump/pull/45
+
+13-03-2026 Paul Rütter
+
 - 3.7.6
 - Fix for https://github.com/blueconic/node-oom-heapdump/security/dependabot/26 by updating dependencies
 
