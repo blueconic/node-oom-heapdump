@@ -31,6 +31,10 @@ bower_components
 
 # Compiled binary addons (https://nodejs.org/api/addons.html)
 build/Release
+build/
+
+# CodeQL
+_codeql_detected_source_root
 
 # Dependency directories
 node_modules/

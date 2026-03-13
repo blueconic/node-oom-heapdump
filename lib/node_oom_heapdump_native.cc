@@ -1,6 +1,7 @@
 #include <nan.h>
 #include <v8-profiler.h>
 #include <stdlib.h>
+#include <atomic>
 #if defined(_WIN32)
 #include <time.h>
 #define snprintf _snprintf
@@ -12,7 +13,7 @@ using namespace v8;
 
 char filename[256];
 bool addTimestamp;
-bool processingOOM = false;
+std::atomic<bool> processingOOM(false);
 
 class FileOutputStream : public OutputStream
 {
@@ -43,35 +44,48 @@ size_t RaiseLimit(void *data, size_t current_heap_limit, size_t initial_heap_lim
 
 void OnOOMErrorHandler()
 {
-  if (processingOOM)
+  if (processingOOM.exchange(true))
   {
     fprintf(stderr, "FATAL: OnOOMError called more than once.\n");
     exit(2);
   }
-  processingOOM = true;
 
   if (addTimestamp)
   {
     // Add timestamp to filename
     time_t rawtime;
-    struct tm *timeinfo;
+    struct tm timeinfo;
     time(&rawtime);
-    timeinfo = localtime(&rawtime);
+#if defined(_WIN32)
+    localtime_s(&timeinfo, &rawtime);
+#else
+    localtime_r(&rawtime, &timeinfo);
+#endif
 
-    char *pch;
-    pch = strstr(filename, ".heapsnapshot");
-    strncpy(pch, "", 1);
-    strcat(filename, "-%Y%m%dT%H%M%S.heapsnapshot");
+    char *pch = strstr(filename, ".heapsnapshot");
+    if (pch != NULL)
+    {
+      *pch = '\0';
+    }
+    strncat(filename, "-%Y%m%dT%H%M%S.heapsnapshot", sizeof(filename) - strlen(filename) - 1);
 
     char newFilename[256];
-    strftime(newFilename, sizeof(filename), filename, timeinfo);
-    strcpy(filename, newFilename);
+    if (strftime(newFilename, sizeof(newFilename), filename, &timeinfo) == 0)
+    {
+      // strftime failed (buffer too small or format error); keep base filename
+      snprintf(newFilename, sizeof(newFilename), "%s", filename);
+    }
+    strncpy(filename, newFilename, sizeof(filename) - 1);
+    filename[sizeof(filename) - 1] = '\0';
   }
 
   fprintf(stderr, "Generating Heapdump to '%s' now...\n", filename);
   FILE *fp = fopen(filename, "w");
   if (fp == NULL)
+  {
+    fprintf(stderr, "FATAL: Failed to open '%s' for writing heapdump.\n", filename);
     abort();
+  }
 
   auto *isolate = v8::Isolate::GetCurrent();
 
@@ -89,6 +103,9 @@ void OnOOMErrorHandler()
   FileOutputStream stream(fp);
   snap->Serialize(&stream, HeapSnapshot::kJSON);
   fclose(fp);
+
+  // Free the heap snapshot memory
+  const_cast<HeapSnapshot *>(snap)->Delete();
 
   fprintf(stderr, "Done! Exiting process now.\n");
   exit(1);
@@ -133,6 +150,7 @@ void ParseArgumentsAndSetErrorHandler(const FunctionCallbackInfo<Value> &args)
   String::Utf8Value fArg(args[0]->ToString());
 #endif
   strncpy(filename, (const char *)(*fArg), sizeof(filename) - 1);
+  filename[sizeof(filename) - 1] = '\0';
 
 #if NODE_VERSION_AT_LEAST(12, 0, 0)
   addTimestamp = args[1]->BooleanValue(isolate);
