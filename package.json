@@ -50,7 +50,7 @@
   },
   "overrides": {
     "@mapbox/node-pre-gyp": {
-      "tar": "7.5.15"
+      "tar": "7.5.16"
     }
   }
 }
