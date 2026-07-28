@@ -1,6 +1,6 @@
 {
   "name": "node-oom-heapdump",
-  "version": "3.8.4",
+  "version": "3.8.5",
   "description": "Create a V8 heap snapshot when an \"Out of Memory\" error occurs, or create a heap snapshot or CPU profile on request.",
   "main": "index.js",
   "scripts": {
@@ -50,7 +50,8 @@
   },
   "overrides": {
     "@mapbox/node-pre-gyp": {
-      "tar": "7.5.16"
-    }
+      "tar": "7.5.22"
+    },
+    "brace-expansion": "5.0.8"
   }
 }

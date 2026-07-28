@@ -1,4 +1,9 @@
-﻿24-06-2026 Paul Rütter
+﻿28-07-2026 Paul Rütter
+
+- 3.8.5
+- Fix for https://github.com/blueconic/node-oom-heapdump/security/dependabot by updating dependencies (tar 7.5.22, brace-expansion 5.0.8)
+
+24-06-2026 Paul Rütter
 
 - 3.8.4
 - Fix for https://github.com/blueconic/node-oom-heapdump/security/dependabot/34 by updating dependencies
