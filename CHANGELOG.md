@@ -1,4 +1,10 @@
-﻿28-07-2026 Paul Rütter
+﻿15-09-2026 Paul Rütter
+
+- 3.8.6
+- Fix for https://github.com/blueconic/node-oom-heapdump/security/dependabot/42 by updating dependencies (@humanfs/node 0.16.8, brace-expansion 5.0.12)
+- Fix for https://github.com/blueconic/node-oom-heapdump/security/code-scanning/3 and /4 by adding explicit GITHUB_TOKEN permissions to the release workflow
+
+28-07-2026 Paul Rütter
 
 - 3.8.5
 - Fix for https://github.com/blueconic/node-oom-heapdump/security/dependabot by updating dependencies (tar 7.5.22, brace-expansion 5.0.8)
