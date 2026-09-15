@@ -1,5 +1,10 @@
 ﻿15-09-2026 Paul Rütter
 
+- 3.8.7
+- Add prebuilt native binaries for Intel Macs (darwin-x64) to the release workflow; macos-latest is arm64-only, so Intel Macs previously fell back to building from source
+
+15-09-2026 Paul Rütter
+
 - 3.8.6
 - Fix for https://github.com/blueconic/node-oom-heapdump/security/dependabot/42 by updating dependencies (@humanfs/node 0.16.8, brace-expansion 5.0.12)
 - Fix for https://github.com/blueconic/node-oom-heapdump/security/code-scanning/3 and /4 by adding explicit GITHUB_TOKEN permissions to the release workflow

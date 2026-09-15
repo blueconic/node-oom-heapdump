@@ -14,7 +14,8 @@ jobs:
     strategy:
       matrix:
         node-version: [18.x, 20.x, 22.x, 24.x]
-        os: [ubuntu-latest, macos-latest, windows-2022]
+        # macos-latest is arm64; macos-15-intel provides the x64 build for Intel Macs
+        os: [ubuntu-latest, macos-latest, macos-15-intel, windows-2022]
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
