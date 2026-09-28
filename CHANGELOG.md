@@ -1,4 +1,9 @@
-﻿15-09-2026 Paul Rütter
+﻿28-09-2026 Paul Rütter
+
+- 3.8.8
+- Fix V-001: path traversal vulnerability in deleteHeapSnapshot/deleteCpuProfile by validating and normalizing the supplied file path
+
+15-09-2026 Paul Rütter
 
 - 3.8.7
 - Add prebuilt native binaries for Intel Macs (darwin-x64) to the release workflow; macos-latest is arm64-only, so Intel Macs previously fell back to building from source
