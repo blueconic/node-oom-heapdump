@@ -44,7 +44,7 @@ class NodeOomHeapdumpAPI {
    * @return {Promise}
    */
   deleteHeapSnapshot(snapshotPath) {
-    return this._impl.deleteHeapSnapshot(snapshotPath);
+    return this._impl.deleteHeapSnapshot(validateFilePath(snapshotPath, ".heapsnapshot"));
   }
 
   /**
@@ -75,8 +75,24 @@ class NodeOomHeapdumpAPI {
    * @return {Promise}
    */
   deleteCpuProfile(cpuProfilePath) {
-    return this._impl.deleteCpuProfile(cpuProfilePath);
+    return this._impl.deleteCpuProfile(validateFilePath(cpuProfilePath, ".cpuprofile"));
   }
+}
+
+// validates that a path to delete is a well-formed path to a snapshot/profile
+// file, rejecting path traversal sequences and unexpected file types
+function validateFilePath(filePath, expectedExtension) {
+  if (typeof filePath !== "string" || filePath.length === 0) {
+    throw new TypeError("Invalid file path");
+  }
+  if (!filePath.endsWith(expectedExtension)) {
+    throw new Error("Invalid file path: expected a " + expectedExtension + " file");
+  }
+  const normalized = require("path").normalize(filePath);
+  if (normalized.split(require("path").sep).includes("..")) {
+    throw new Error("Invalid file path: path traversal is not allowed");
+  }
+  return normalized;
 }
 
 // utility functions
