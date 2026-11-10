@@ -1,4 +1,9 @@
-﻿28-09-2026 Paul Rütter
+﻿09-11-2026 Paul Rütter
+
+- 3.9.0
+- Add prebuilt native binaries for Node.js 26.x (Linux, macOS arm64/x64, Windows, Alpine)
+
+28-09-2026 Paul Rütter
 
 - 3.8.8
 - Fix V-001: path traversal vulnerability in deleteHeapSnapshot/deleteCpuProfile by validating and normalizing the supplied file path

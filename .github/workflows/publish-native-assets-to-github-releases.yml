@@ -13,7 +13,7 @@ jobs:
       contents: write
     strategy:
       matrix:
-        node-version: [18.x, 20.x, 22.x, 24.x]
+        node-version: [18.x, 20.x, 22.x, 24.x, 26.x]
         # macos-latest is arm64; macos-15-intel provides the x64 build for Intel Macs
         os: [ubuntu-latest, macos-latest, macos-15-intel, windows-2022]
     steps:
@@ -43,7 +43,12 @@ jobs:
     strategy:
       matrix:
         node-version: [18, 20, 22, 24]
-    container: node:${{ matrix.node-version }}-alpine3.20
+        alpine-version: ['3.20']
+        include:
+          # node:26 images are not published for alpine3.20
+          - node-version: 26
+            alpine-version: '3.22'
+    container: node:${{ matrix.node-version }}-alpine${{ matrix.alpine-version }}
     steps:
       - uses: actions/checkout@v2
       - name: install build deps
