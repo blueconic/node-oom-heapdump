@@ -12,8 +12,6 @@ jobs:
     permissions:
       contents: write
     strategy:
-      # a failing build for one platform must not cancel the builds for the other platforms
-      fail-fast: false
       matrix:
         node-version: [18.x, 20.x, 22.x, 24.x, 26.x]
         # ubuntu-latest is x64; ubuntu-24.04-arm provides the arm64 (glibc) build for Linux
