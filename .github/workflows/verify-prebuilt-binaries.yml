@@ -28,20 +28,26 @@ jobs:
         # macos-latest is arm64; macos-15-intel provides the x64 build for Intel Macs
         os: [ubuntu-latest, ubuntu-24.04-arm, macos-latest, macos-15-intel, windows-2022]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v7
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v7
         with:
           node-version: ${{ matrix.node-version }}
       - name: Add msbuild to PATH
         if: matrix.os == 'windows-2022'
-        uses: microsoft/setup-msbuild@v1.1
+        uses: microsoft/setup-msbuild@v3
       - name: build using node-pre-gyp
         run: |
           npm install --build-from-source
           npx node-pre-gyp package
       - name: Verify the packaged binary
         run: node tests/verify_prebuilt.js
+      # the release workflow uploads the packaged tarball with the GitHub CLI; check that it is available and finds the tarball
+      - name: Check the release upload tooling
+        shell: bash
+        run: |
+          gh --version
+          ls -l build/stage/*.tar.gz
 
   verify-alpine:
     runs-on: ubuntu-latest
@@ -56,10 +62,10 @@ jobs:
             alpine-version: '3.22'
     container: node:${{ matrix.node-version }}-alpine${{ matrix.alpine-version }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v7
       - name: install build deps
         run: |
-          apk add g++ make python3
+          apk add g++ make python3 github-cli
       - name: build using node-pre-gyp
         run: |
           npm install
@@ -67,3 +73,7 @@ jobs:
           npx node-pre-gyp package
       - name: Verify the packaged binary
         run: node tests/verify_prebuilt.js
+      - name: Check the release upload tooling
+        run: |
+          gh --version
+          ls -l build/stage/*.tar.gz
