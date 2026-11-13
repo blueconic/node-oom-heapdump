@@ -1,0 +1,69 @@
+# This workflow validates that the prebuilt native binaries work, without needing a release.
+#
+# It builds and packages the binaries exactly like 'publish-native-assets-to-github-releases.yml' does, but
+# instead of uploading them to a release, it installs the tarball the way a consumer of the package would
+# (`node-pre-gyp install`, without falling back to a source build) from a local server, loads the native addon
+# and lets a Node.js process run out of memory to check that a heap snapshot is written. See tests/verify_prebuilt.js.
+#
+# Keep the matrices and build steps in sync with the release workflow.
+
+name: Verify prebuilt binaries
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      # report every platform, instead of cancelling the others when one fails
+      fail-fast: false
+      matrix:
+        node-version: [18.x, 20.x, 22.x, 24.x, 26.x]
+        # ubuntu-latest is x64; ubuntu-24.04-arm provides the arm64 (glibc) build for Linux
+        # macos-latest is arm64; macos-15-intel provides the x64 build for Intel Macs
+        os: [ubuntu-latest, ubuntu-24.04-arm, macos-latest, macos-15-intel, windows-2022]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Add msbuild to PATH
+        if: matrix.os == 'windows-2022'
+        uses: microsoft/setup-msbuild@v1.1
+      - name: build using node-pre-gyp
+        run: |
+          npm install --build-from-source
+          npx node-pre-gyp package
+      - name: Verify the packaged binary
+        run: node tests/verify_prebuilt.js
+
+  verify-alpine:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [18, 20, 22, 24]
+        alpine-version: ['3.20']
+        include:
+          # node:26 images are not published for alpine3.20
+          - node-version: 26
+            alpine-version: '3.22'
+    container: node:${{ matrix.node-version }}-alpine${{ matrix.alpine-version }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: install build deps
+        run: |
+          apk add g++ make python3
+      - name: build using node-pre-gyp
+        run: |
+          npm install
+          npx node-pre-gyp rebuild
+          npx node-pre-gyp package
+      - name: Verify the packaged binary
+        run: node tests/verify_prebuilt.js

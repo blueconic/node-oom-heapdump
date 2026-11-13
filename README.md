@@ -13,6 +13,7 @@ From 3.1.0, prebuilt binaries are only shipped for Node.js 16.x and upwards.
 From 3.2.3, prebuilt binaries are only shipped for Node.js 18.x and upwards.
 In 3.7.0, prebuilt binaries for node 24.x were added.
 In 3.9.0, prebuilt binaries for node 26.x were added.
+In 3.9.1, prebuilt binaries for Linux arm64 (glibc) were added.
 
 ## Node 22.x
 Since node 22.x, there is a new CLI flag for generating heapdumps. This one is supplied by V8 (not Node.js) and is more reliant and efficient in creating the heapdumps than Node.js' `--heapsnapshot-near-heap-limit`.
