@@ -20,7 +20,6 @@ on:
       - 'tests/verify_prebuilt.js'
       - '.github/workflows/verify-prebuilt-binaries.yml'
       - '.github/workflows/publish-native-assets-to-github-releases.yml'
-  workflow_dispatch:
 
 permissions:
   contents: read
