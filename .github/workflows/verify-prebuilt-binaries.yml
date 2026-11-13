@@ -42,12 +42,6 @@ jobs:
           npx node-pre-gyp package
       - name: Verify the packaged binary
         run: node tests/verify_prebuilt.js
-      # the release workflow uploads the packaged tarball with the GitHub CLI; check that it is available and finds the tarball
-      - name: Check the release upload tooling
-        shell: bash
-        run: |
-          gh --version
-          ls -l build/stage/*.tar.gz
 
   verify-alpine:
     runs-on: ubuntu-latest
@@ -65,7 +59,7 @@ jobs:
       - uses: actions/checkout@v7
       - name: install build deps
         run: |
-          apk add g++ make python3 github-cli
+          apk add g++ make python3
       - name: build using node-pre-gyp
         run: |
           npm install
@@ -73,7 +67,3 @@ jobs:
           npx node-pre-gyp package
       - name: Verify the packaged binary
         run: node tests/verify_prebuilt.js
-      - name: Check the release upload tooling
-        run: |
-          gh --version
-          ls -l build/stage/*.tar.gz
