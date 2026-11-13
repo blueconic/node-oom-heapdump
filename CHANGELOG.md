@@ -2,6 +2,7 @@
 
 - 3.9.1
 - Add prebuilt native binaries for Linux arm64 (glibc) to the release workflow; Linux arm64 previously fell back to building from source
+- Add a workflow that verifies the prebuilt native binaries on every pull request (and manually), without needing a release
 
 09-11-2026 Paul Rütter
 
