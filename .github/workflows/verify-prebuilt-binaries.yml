@@ -11,15 +11,6 @@ name: Verify prebuilt binaries
 
 on:
   pull_request:
-    paths:
-      - 'lib/**'
-      - 'binding.gyp'
-      - 'package.json'
-      - 'package-lock.json'
-      - 'tests/oom_app.js'
-      - 'tests/verify_prebuilt.js'
-      - '.github/workflows/verify-prebuilt-binaries.yml'
-      - '.github/workflows/publish-native-assets-to-github-releases.yml'
 
 permissions:
   contents: read
